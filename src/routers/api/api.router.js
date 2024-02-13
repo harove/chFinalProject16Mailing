@@ -1,11 +1,19 @@
-import { Router } from 'express';
+import { Router, json, urlencoded } from 'express';
 import { productsRouter } from './products.router.js';
 import { cartsRouter } from './carts.router.js';
 import { sesionesRouter } from './sesiones.router.js';
 import { usuariosRouter } from './usuarios.router.js';
+import { respuestasMejoradas } from '../../middlewares/respuestasMejoradas.js';
 
 
 export const apiRouter = Router()
+
+
+apiRouter.use(respuestasMejoradas)
+
+apiRouter.use(json())
+apiRouter.use(urlencoded({extended:true}))
+
 apiRouter.use('/products', productsRouter)
 apiRouter.use('/carts', cartsRouter)
 apiRouter.use('/sesiones', sesionesRouter)

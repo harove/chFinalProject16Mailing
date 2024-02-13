@@ -31,12 +31,6 @@ app.use(passportInitialize)
 app.engine('handlebars', handlebars.engine())
 app.set('views', './views')
 
-
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-
-
-
 app.use(express.static('./public'))
 app.use(express.static('./views'))
 app.use('/static', express.static('./static'))
