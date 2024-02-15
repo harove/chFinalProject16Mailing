@@ -1,10 +1,16 @@
-import { getDaoProducts } from "../dao/products.dao.js"
+import { getDaoProducts } from "../dao/products/products.dao.js"
 
 const productsDao = await getDaoProducts()
+
+getDaoProducts
 
 class ProductsService {
     async create(pojo) {
         return await productsDao.create(pojo)
+    }
+
+    async find(query) {
+        return await productsDao.find(query)
     }
 
     async paginate(query, options) {

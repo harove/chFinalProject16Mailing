@@ -1,6 +1,7 @@
 import util from 'node:util'
-// import { productsManager as manager } from "../dao/productsManager.js"
-import { productsManager as manager } from "../../dao/index.js"
+import { productsService } from '../../services/products.service.js';
+
+
 
 // export async function getController(req, res) {
 //     const sort = 'asc'
@@ -36,7 +37,7 @@ export async function getController(req, res) {
 export async function getByIdController(req, res) {
     const {id} = req.params
     try {
-        const pojo = await manager.findById(id).lean()
+        const pojo = await productsService.findById(id)
         res.render('product.handlebars', {
             payload:pojo,
             payloadJs: JSON.stringify(pojo),

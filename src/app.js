@@ -4,14 +4,14 @@ import handlebars from 'express-handlebars'
 import { webRouter } from './routers/web/web.Router.js'
 import {Server} from 'socket.io'
 import connectMongo from 'connect-mongo'
-// import { productsManager } from './dao/productsManager.js'
-import { productsManager, messagesManager } from './dao/index.js'
+import { messagesManager } from './dao/index.js'
 import session from 'express-session'
 import { MONGODB_CNX_STR  } from './config.js'
 // import { sesiones } from './middlewares/sesiones.js'
 import { passportInitialize } from './middlewares/autenticaciones.js'
 import { cookies } from './middlewares/cookies.js'
 import 'dotenv/config'
+import { productsService } from './services/products.service.js'
 
 // import {  } from './midlewares/midlewares.js'
 
@@ -46,8 +46,7 @@ const webSocketServer = new Server(server)
 
 app.use((req,res,next)=>{
     res['newProduct'] = async()=>{
-        // const products = await productsManager.findAll()
-        const products = await productsManager.find().lean()
+        const products = await productsService.find({})
         webSocketServer.emit('newProduct', {products} )
     }
     next()

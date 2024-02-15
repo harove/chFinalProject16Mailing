@@ -1,10 +1,10 @@
 import { Router } from 'express';
-// import { productsManager as manager } from '../dao/productsManager.js';
-import { productsManager as manager } from '../../dao/index.js';
 import { cartsWebRouter } from './carts.web.router.js';
 import { onlyLogueadosWeb } from '../../middlewares/autorizacion.js';
 import { productsRouter } from './products.router.js';
 import passport from 'passport';
+import { productsService } from '../../services/products.service.js';
+
 
 export const webRouter = Router();
 
@@ -12,8 +12,8 @@ webRouter.use(productsRouter)
 
 
 webRouter.get('/realtimeproducts', async (req, res) => {
-    // const products = await manager.findAll();
-    const products = await manager.find().lean()
+    // const products = await manager.findAll(); for files
+    const products = await productsService.find({})
     res.render('realTimeProducts.handlebars', {
         products,
         titulo: 'Realtime Products'

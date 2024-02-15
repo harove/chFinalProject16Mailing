@@ -1,5 +1,4 @@
 import util from 'node:util'
-// import { productsManager as manager } from "../dao/productsManager.js"
 import { cartsManager as manager } from "../../dao/index.js"
 
 
