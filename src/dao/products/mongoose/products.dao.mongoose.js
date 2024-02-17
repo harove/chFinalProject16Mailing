@@ -4,7 +4,7 @@ export class ProductsDaoMongoose {
     this.productsModel = productsModel
   }
 
-    async create(pojo) {
+    async add(pojo) {
       const document = await this.productsModel.create(pojo)
       return document.toObject()
     }

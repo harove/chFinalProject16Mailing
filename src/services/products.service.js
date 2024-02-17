@@ -5,8 +5,8 @@ const productsDao = await getDaoProducts()
 getDaoProducts
 
 class ProductsService {
-    async create(pojo) {
-        return await productsDao.create(pojo)
+    async add(pojo) {
+        return await productsDao.add(pojo)
     }
 
     async find(query) {

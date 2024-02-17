@@ -3,7 +3,7 @@ import { productsService } from '../../services/products.service.js'
 export async function postController(req, res) {
     const body = req.body
     try {
-        const pojo = await productsService.create(body)
+        const pojo = await productsService.add(body)
         res['newProduct']()
         res.status(201).json(pojo)
     } catch (error) {
