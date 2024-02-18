@@ -38,15 +38,7 @@ export async function addProductToCartController(req, res) {
     const cid = req.params.cid
     const pid = req.params.pid
     try {
-        // const pojo = await manager.addProductToCart({cid,pid})
-        const cart = await cartsService.findById(cid)
-        const pidIndex = cart.products.findIndex(product=> new mongoose.Types.ObjectId(product._id).equals(pid))
-        if (pidIndex === -1){
-            cart.products.push({_id:pid, quantity:1})
-        }else{
-            cart.products[pidIndex].quantity += 1;
-        }
-        await cart.save()
+        const cart = await cartsService.addProductToCart(cid,pid)
         res.json(cart)
     } catch (error) {
         res.status(400).json({
@@ -74,15 +66,8 @@ export async function updateQuantityOfProductFromCartController(req, res) {
 export async function deleteAllProductsFromCartController(req, res) {
     const cid = req.params.cid
     try {
-        // const pojo = await manager.addProductToCart({cid,pid})
-        const cart = await cartsService.findById(cid)
-        if (cart === null){
-            throw new Error('Cart not found')
-        }else{
-            cart.products = []
-            await cart.save()
-            res.json(cart)
-        }
+        const cart = await cartsService.deleteAllProductsFromCart(cid)
+        res.json(cart)
     } catch (error) {
         res.status(404).json({
             mensaje: error.message
@@ -97,14 +82,7 @@ export async function deleteProductFromCartController(req, res) {
     const cid = req.params.cid
     const pid = req.params.pid
     try {
-        const cart = await manager.findById(cid)
-        const productIndex = cart.products.findIndex(product=>product.id===pid)
-        if(productIndex !== -1){
-            cart.products.splice(productIndex, 1);
-        }else{
-            throw new Error('Producto no encontrado')
-        }        
-        await cart.save()
+        const cart = await cartsService.deleteProductFromCart(cid,pid)
         res.json(cart)
     } catch (error) {
         res.status(404).json({

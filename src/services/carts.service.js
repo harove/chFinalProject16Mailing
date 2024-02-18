@@ -19,6 +19,18 @@ class CartsService {
     return await cartsDao.updateQuantityOfProductsInCart(cid, pid, quantity);
   }
 
+  async deleteProductFromCart(cid, pid) {
+    return await cartsDao.deleteProductFromCart(cid, pid);
+  }
+
+  async deleteAllProductsFromCart(cid) {
+    return await cartsDao.deleteAllProductsFromCart(cid);
+  }
+
+  async addProductToCart(cid, pid) {
+    return await cartsDao.addProductToCart(cid, pid);
+  }
+
   async findByIdAndUpdate(id, query, options) {
     return await cartsDao.findByIdAndUpdate(id, query, options);
   }
