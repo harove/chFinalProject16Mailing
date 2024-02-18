@@ -1,9 +1,6 @@
 import { getDaoProducts } from "../dao/products/products.dao.js"
 
 const productsDao = await getDaoProducts()
-
-getDaoProducts
-
 class ProductsService {
     async add(pojo) {
         return await productsDao.add(pojo)

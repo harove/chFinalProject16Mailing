@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import { usuariosManager } from '../../dao/index.js'
 import { deleteTokenFromCookie, tokenizeUserInCookie } from '../../middlewares/tokens.js'
 import passport from 'passport'
+import { usuariosService } from '../../services/usuarios.service.js'
 
 export const sesionesRouter = Router()
 
@@ -44,7 +44,7 @@ sesionesRouter.delete('/current',
 sesionesRouter.post('/', 
     async (req, res, next)=>{
         try {
-            const user = await usuariosManager.autenticar(req.body.email, req.body.password)
+            const user = await usuariosService.autenticar(req.body.email, req.body.password)
             req.user = user
             next()
         }catch(error){

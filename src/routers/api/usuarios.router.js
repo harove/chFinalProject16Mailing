@@ -1,12 +1,8 @@
 import { Router } from 'express'
-import { usuariosManager } from '../../dao/index.js'
 import passport from 'passport'
 import { tokenizeUserInCookie } from '../../middlewares/tokens.js'
 import { soloRoles } from '../../middlewares/authorization.js'
-
-
-
-
+import { usuariosService } from '../../services/usuarios.service.js'
 
 export const usuariosRouter = Router()
 
@@ -55,7 +51,7 @@ export const usuariosRouter = Router()
 usuariosRouter.post('/', 
     async (req, res, next)=>{
         try {
-            const user = await usuariosManager.registrar(req.body)
+            const user = await usuariosService.registrar(req.body)
             req.user = user
             next()
         }catch(error){
@@ -80,7 +76,7 @@ usuariosRouter.get('/findAll',
     soloRoles(['admin']),
     async (req,res,next)=>{
         try{
-            const users = await usuariosManager.find().lean()
+            const users = await usuariosService.find()
             res.json(users) 
         }catch(error){
             next(error)

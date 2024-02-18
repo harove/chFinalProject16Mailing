@@ -11,4 +11,3 @@ try {
 
 
 export {managerMessage as messagesManager} from './message.js'
-export {manager as usuariosManager} from './Usuario.js'

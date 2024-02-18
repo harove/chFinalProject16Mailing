@@ -1,0 +1,6 @@
+
+
+class AuthService {
+    async authenticate(){
+    }
+}

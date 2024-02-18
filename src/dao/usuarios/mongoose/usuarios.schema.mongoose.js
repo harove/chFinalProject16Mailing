@@ -1,12 +1,10 @@
 import mongoose, {Schema, Types} from "mongoose"
 import { randomUUID } from "node:crypto"
-import { hasheadasSonIguales, hashear } from '../utils/criptografia.js'
-import { DEFAULT_USER_AVATAR_PATH } from "../config.js"
+import { hasheadasSonIguales, hashear } from '../../../utils/criptografia.js'
+import { DEFAULT_USER_AVATAR_PATH } from "../../../config.js"
 
 
-const collection = 'usuarios'
-
-const schema = new Schema({
+export const usuariosSchema = new Schema({
     // _id: {type: String, default: randomUUID},
     // _id: {
     //     type: Schema.Types.ObjectId,
@@ -59,5 +57,3 @@ const schema = new Schema({
         }
     }
 })
-
-export const manager = mongoose.model(collection, schema)
