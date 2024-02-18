@@ -57,10 +57,7 @@ const schema = new Schema({
             }
             return user.toObject()
         }
-        
-
     }
-
 })
 
 export const manager = mongoose.model(collection, schema)

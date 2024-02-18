@@ -1,5 +1,4 @@
 // import { cartsManager as manager } from "../dao/cartsManager.js"
-import { cartsManager as manager } from "../../dao/index.js"
 import mongoose from 'mongoose';
 import { cartsService } from "../../services/carts.service.js";
 
@@ -62,15 +61,7 @@ export async function updateQuantityOfProductFromCartController(req, res) {
     const pid = req.params.pid
     const {quantity} = req.body
     try {
-        // const pojo = await manager.addProductToCart({cid,pid})
-        const cart = await cartsService.findById(cid)
-        const pidIndex = cart.products.findIndex(product=>product.id === pid)
-        if (pidIndex === -1){
-            throw new Error('Product not found')
-        }else{
-            cart.products[pidIndex] = {...cart.products[pidIndex], quantity}
-        }
-        await cart.save()
+        const cart = await cartsService.updateQuantityOfProductsInCart(cid,pid,quantity)
         res.json(cart)
     } catch (error) {
         res.status(404).json({
@@ -132,7 +123,7 @@ export async function deleteProductFromCartController(req, res) {
 export async function getController(req, res) {
     const {limit} = req.query
     // const pojos = await manager.findAll({limit})
-    const pojos = await manager.find().limit(limit)
+    const pojos = await cartsService.find().limit(limit)
     res.json(pojos)
 }
 
@@ -140,7 +131,7 @@ export async function updateController(req, res) {
     const id = req.params.id
     const fields = req.body
     try {
-        const pojos = await manager.updatePojo(id,fields)
+        const pojos = await cartsService.updatePojo(id,fields)
         res.json(pojos)
     } catch (error) {
         res.status(404).json({
@@ -153,7 +144,7 @@ export async function deleteController(req, res) {
     const id = req.params.id
     try {
         // const pojos = await manager.delete(id)
-        const pojo = await manager.findByIdAndDelete(id)
+        const pojo = await cartsService.findByIdAndDelete(id)
         res.json(pojo)
     } catch (error) {
         res.status(404).json({
