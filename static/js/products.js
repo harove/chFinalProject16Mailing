@@ -180,29 +180,27 @@ const renderTableCart = (tableClass, el,table) => {
   el.innerHTML = null;
 
 
-  const th = document.createElement("th");
-  th.textContent = "View";
 
   const deleteTh = document.createElement("th");
   deleteTh.textContent = "Delete";
 
   // const additionalCols = [th, deleteTh]
-  const additionalCols = []
+  const additionalCols = [deleteTh]
   renderTableHeaders(cartEl, tableClass, ['product', 'quantity'],additionalCols, 'test');
 
   // Render data rows
   table.forEach((product) => {
-    console.log({productook: product})
     // const td = document.createElement("td");
     // td.innerHTML = `<a href="/products/${product._id}">View</a>`;
 
-    // const deleteTd = document.createElement("td");
-    // const button = document.createElement("button");
-    // deleteTd.appendChild(button);
-    // button.addEventListener("click", (e) => handleDeleteProduct(e, product._id));
-    // button.textContent = "Delete";
-    // button.classList.add("btn", "btn-primary");
-    renderTableDataRow(tableClass, {product:product._id.title, quantity: product.quantity},[]);
+    const deleteTd = document.createElement("td");
+    const button = document.createElement("button");
+    deleteTd.appendChild(button);
+    button.addEventListener("click", (e) => handleDeleteProductFromCart(e, product._id._id));
+    button.textContent = "Delete";
+    button.classList.add("btn", "btn-danger");
+
+    renderTableDataRow(tableClass, {product:product._id.title, quantity: product.quantity},[deleteTd]);
   });
 };
 
