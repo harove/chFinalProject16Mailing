@@ -6,12 +6,12 @@ import { httpClient } from './httpClient.js';
 
 const button = document.querySelector('button')
 
-const addProduct = async (cartId, productId)=>{
+const addProductToCart = async (cartId, productId)=>{
     const response = await httpClient(`/api/carts/${cartId}/products/${productId}`,'POST')
     if (!response.ok) {
         throw new Error('Failed create a product');
     }
-    const product = await response.json()
+    const cart = await response.json()
 }
 
 
@@ -39,7 +39,7 @@ button.addEventListener('click',async()=>{
     }else{
 
     }
-    await addProduct(cartData._id,payload._id)
+    await addProductToCart(cartData._id,payload._id)
 
 })
 

@@ -1,7 +1,7 @@
 import mongoose, {Schema, Types} from "mongoose"
 import { randomUUID } from "node:crypto"
 import { hasheadasSonIguales, hashear } from '../../../utils/criptografia.js'
-import { DEFAULT_USER_AVATAR_PATH } from "../../../config.js"
+import { ADMIN_EMAIL, DEFAULT_USER_AVATAR_PATH } from "../../../config.js"
 
 
 export const usuariosSchema = new Schema({
@@ -31,7 +31,7 @@ export const usuariosSchema = new Schema({
                 if(userData.password){
                     userData.password = hashear(userData.password)
                 }
-                userData.rol = 'user'
+                asignar_rol(userData)
                 const user = await this.create(userData)
                 return user.toObject()
             } catch(error){
@@ -57,3 +57,12 @@ export const usuariosSchema = new Schema({
         }
     }
 })
+
+
+function asignar_rol(obj) {
+    if (obj.email === ADMIN_EMAIL) {
+      obj.rol = 'admin'
+    } else {
+      obj.rol = 'user'
+    }
+  }

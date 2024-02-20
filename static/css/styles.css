@@ -24,3 +24,12 @@ ul{
     padding: 0;
     display: flex;
   }
+
+  .cart-list-table{
+    margin-left: 100px;
+  }
+
+  table td{
+    padding: 10px 5px;
+    border: 1px solid black;
+  }

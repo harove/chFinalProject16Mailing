@@ -1,10 +1,11 @@
-import { Router } from 'express'
-import passport from 'passport'
-import { tokenizeUserInCookie } from '../../middlewares/tokens.js'
-import { soloRoles } from '../../middlewares/authorization.js'
-import { usuariosService } from '../../services/usuarios.service.js'
+import { Router } from "express";
+import passport from "passport";
+import { tokenizeUserInCookie } from "../../middlewares/tokens.js";
+import { soloRoles } from "../../middlewares/authorization.js";
+import { usuariosService } from "../../services/usuarios.service.js";
+import { authService } from "../../services/auth.service.js";
 
-export const usuariosRouter = Router()
+export const usuariosRouter = Router();
 
 // usuariosRouter.post('/', async (req, res) => {
 //   try {
@@ -47,39 +48,41 @@ export const usuariosRouter = Router()
 //   }
 // })
 
-
-usuariosRouter.post('/', 
-    async (req, res, next)=>{
-        try {
-            const user = await usuariosService.registrar(req.body)
-            req.user = user
-            next()
-        }catch(error){
-            next(error)
-        }
-    },
-    tokenizeUserInCookie,
-    (req, res)=>{
-        res.status(201).json(req.user)
+usuariosRouter.post(
+  "/",
+  async (req, res, next) => {
+    try {
+      const user = await usuariosService.registrar(req.body);
+      req.user = user;
+      next();
+    } catch (error) {
+      next(error);
     }
-)
+  },
+  tokenizeUserInCookie,
+  (req, res) => {
+    res.status(201).json(req.user);
+  }
+);
 
-usuariosRouter.get('/current', 
-    passport.authenticate('jwt', {failWithError: true, session: false}),
-    async (req, res, next) =>{
-        res.json(req.user)
-    }
-)
+usuariosRouter.get(
+  "/current",
+  authService.authenticate("local"),
+  async (req, res, next) => {
+    res.json(req.user);
+  }
+);
 
-usuariosRouter.get('/findAll', 
-    passport.authenticate('jwt', {failWithError: true, session: false}),
-    soloRoles(['admin']),
-    async (req,res,next)=>{
-        try{
-            const users = await usuariosService.find()
-            res.json(users) 
-        }catch(error){
-            next(error)
-        }
+usuariosRouter.get(
+  "/findAll",
+  authService.authenticate("local"),
+  soloRoles(["admin"]),
+  async (req, res, next) => {
+    try {
+      const users = await usuariosService.find();
+      res.json(users);
+    } catch (error) {
+      next(error);
     }
-)
+  }
+);

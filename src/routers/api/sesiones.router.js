@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { deleteTokenFromCookie, tokenizeUserInCookie } from '../../middlewares/tokens.js'
 import passport from 'passport'
 import { usuariosService } from '../../services/usuarios.service.js'
+import { authService } from '../../services/auth.service.js'
 
 export const sesionesRouter = Router()
 
@@ -28,7 +29,7 @@ export const sesionesRouter = Router()
 // })
 
 sesionesRouter.get('/current', 
-    passport.authenticate('jwt', {failWithError: true, session: false}),
+    authService.authenticate("local"),
     async (req, res, next) =>{
         res.json(req.user)
     }
