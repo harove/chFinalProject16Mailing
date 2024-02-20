@@ -77,6 +77,27 @@ const handleADDProductToCart = async (e, pid) => {
   renderTableCart('cart-list-table', cartEl, cart[0].products);
 };
 
+
+const makePurchaseTicket = async (cid) => {
+  const response = await httpClient(
+    `/api/carts/${cid}/purchase`,
+    "POST",
+  );
+  if (!response.ok) {
+    throw new Error("Failed buying a product");
+  }
+  const ticket = await response.json();
+};
+
+const handleMakePurchaseTicket = async (e) => {
+  e.preventDefault();
+  let cid = JSON.parse(localStorage.getItem("cart"))._id;
+  await makePurchaseTicket(cid);
+
+  const cart = (await freshResponse(page)).cart;
+  renderTableCart('cart-list-table', cartEl, cart[0].products);
+};
+
 function renderTableHeaders(el, tableClass, headers, additionalCols, colsClass) {
   const table = document.createElement("table");
   table.classList.add(tableClass, colsClass);
@@ -177,21 +198,28 @@ const renderTable = (tableClass, el,table) => {
 };
 
 const renderTableCart = (tableClass, el,table) => {
+  let subTotal = 0
   el.innerHTML = null;
 
 
+  const priceTh = document.createElement("th");
+  priceTh.textContent = "price";
 
   const deleteTh = document.createElement("th");
-  deleteTh.textContent = "Delete";
+  deleteTh.textContent = "delete";
 
   // const additionalCols = [th, deleteTh]
-  const additionalCols = [deleteTh]
+  const additionalCols = [priceTh, deleteTh]
   renderTableHeaders(cartEl, tableClass, ['product', 'quantity'],additionalCols, 'test');
 
   // Render data rows
   table.forEach((product) => {
     // const td = document.createElement("td");
     // td.innerHTML = `<a href="/products/${product._id}">View</a>`;
+
+    const priceTd = document.createElement("td");
+    priceTd.textContent = product._id.price;
+    subTotal = Number(product._id.price) + subTotal
 
     const deleteTd = document.createElement("td");
     const button = document.createElement("button");
@@ -200,9 +228,18 @@ const renderTableCart = (tableClass, el,table) => {
     button.textContent = "Delete";
     button.classList.add("btn", "btn-danger");
 
-    renderTableDataRow(tableClass, {product:product._id.title, quantity: product.quantity},[deleteTd]);
+    renderTableDataRow(tableClass, {product:product._id.title, quantity: product.quantity},[priceTd, deleteTd]);
   });
+
+  renderTableDataRow(tableClass, {product:'Total', quantity: '', subTotal},[]);
+
+  const button = document.createElement('button')
+  button.textContent='Comprar'
+  button.addEventListener("click", (e) => handleMakePurchaseTicket(e));
+  el.appendChild(button)
+
 };
+
 
 // Function to handle URL changes
 async function handleUrlChange() {

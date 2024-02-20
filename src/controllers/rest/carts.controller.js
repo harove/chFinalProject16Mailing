@@ -1,6 +1,7 @@
 // import { cartsManager as manager } from "../dao/cartsManager.js"
 import mongoose from 'mongoose';
 import { cartsService } from "../../services/carts.service.js";
+import { ticketsService } from '../../services/tickets.service.js';
 
 //creating cart
 export async function postController(req, res) {
@@ -88,6 +89,17 @@ export async function deleteProductFromCartController(req, res) {
         res.status(404).json({
             mensaje: error.message
         })
+    }
+}
+
+
+export async function makePurchaseTicketController(req, res) {
+    const cid = req.params.cid
+    try {
+        const pojo = await ticketsService.add(body)
+        res.status(201).json(pojo)
+    } catch (error) {
+        res.status(400).json({message:error.message})
     }
 }
 
