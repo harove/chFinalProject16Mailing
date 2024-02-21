@@ -2,8 +2,8 @@ import { getDaoTickets } from "../dao/tickets/tickets.dao.js"
 
 const ticketsDao = await getDaoTickets()
 class TicketsService {
-    async add(pojo) {
-        return await ticketsDao.add(pojo)
+    async add(cid, email) {
+        return await ticketsDao.add(cid, email)
     }
 
     async find(query) {

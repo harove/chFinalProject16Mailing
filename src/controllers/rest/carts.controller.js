@@ -95,8 +95,9 @@ export async function deleteProductFromCartController(req, res) {
 
 export async function makePurchaseTicketController(req, res) {
     const cid = req.params.cid
+    const userEmail = req.user.email
     try {
-        const pojo = await ticketsService.add(body)
+        const pojo = await ticketsService.add(cid, userEmail)
         res.status(201).json(pojo)
     } catch (error) {
         res.status(400).json({message:error.message})

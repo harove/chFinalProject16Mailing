@@ -33,3 +33,7 @@ ul{
     padding: 10px 5px;
     border: 1px solid black;
   }
+
+  .cartEl button{
+    margin-left: 100px;
+  }

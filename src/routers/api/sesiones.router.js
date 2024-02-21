@@ -31,7 +31,9 @@ export const sesionesRouter = Router()
 sesionesRouter.get('/current', 
     authService.authenticate("local"),
     async (req, res, next) =>{
-        res.json(req.user)
+        const user = {...req.user}
+        delete user.password
+        res.json(user)
     }
 )
 

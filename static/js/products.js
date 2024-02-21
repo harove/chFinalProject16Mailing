@@ -11,7 +11,7 @@ const totalPagesLinkEl = document.getElementById("totalPages");
 const cartEl = document.getElementById("cartEl");
 cartEl.classList.add("col-xl-2");
 
-const freshResponse = async (page) => {
+const freshResponse = async (page=1) => {
   const productsStream = await httpClient(`/api/products?page=${page}`);
   const products = await productsStream.json();
 
@@ -22,6 +22,28 @@ const freshResponse = async (page) => {
   return { products, cart };
 };
 
+const freshCart = async ()=>{
+  try{
+    var page = new URLSearchParams(window.location.search).get("page");
+    const cart = (await freshResponse(page)).cart;
+    renderTableCart('cart-list-table', cartEl, cart[0].products);
+  }catch(error){
+    console.log(error.message)
+  }
+}
+
+
+const freshProducts = async ()=>{
+  try{
+    var page = new URLSearchParams(window.location.search).get("page");
+    const products = (await freshResponse(page)).products;
+    renderTable('product-list-table', productListEl, products.payload);
+  }catch(error){
+    console.log(error.message)
+  }
+}
+
+
 const deleteProductFromCart = async (cid, pid) => {
   const response = await httpClient(
     `/api/carts/${cid}/products/${pid}`,
@@ -30,9 +52,7 @@ const deleteProductFromCart = async (cid, pid) => {
   if (!response.ok) {
     throw new Error("Failed deleting a product");
   }
-
-  const cart = (await freshResponse(page)).cart;
-  renderTableCart('cart-list-table', cartEl, cart[0].products);
+  await freshCart()
 
 };
 
@@ -54,12 +74,7 @@ const handleDeleteProduct = async (e, pid) => {
     throw new Error("Failed deleting a product");
   }
   const product = await response.json();
-  var page = new URLSearchParams(window.location.search).get("page");
-
-  // Do something with the page number
-
-  const products = (await freshResponse(page)).products;
-  renderTable('product-list-table', productListEl, products.payload);
+  await freshProducts()
 };
 
 const handleDeleteProductFromCart = async (e, pid) => {
@@ -72,9 +87,7 @@ const handleADDProductToCart = async (e, pid) => {
   e.preventDefault();
   let cid = JSON.parse(localStorage.getItem("cart"))._id;
   await addProductToCart(cid, pid);
-
-  const cart = (await freshResponse(page)).cart;
-  renderTableCart('cart-list-table', cartEl, cart[0].products);
+  await freshCart()
 };
 
 
@@ -93,9 +106,8 @@ const handleMakePurchaseTicket = async (e) => {
   e.preventDefault();
   let cid = JSON.parse(localStorage.getItem("cart"))._id;
   await makePurchaseTicket(cid);
-
-  const cart = (await freshResponse(page)).cart;
-  renderTableCart('cart-list-table', cartEl, cart[0].products);
+  await freshCart()
+  await freshProducts()
 };
 
 function renderTableHeaders(el, tableClass, headers, additionalCols, colsClass) {
@@ -211,7 +223,6 @@ const renderTableCart = (tableClass, el,table) => {
   // const additionalCols = [th, deleteTh]
   const additionalCols = [priceTh, deleteTh]
   renderTableHeaders(cartEl, tableClass, ['product', 'quantity'],additionalCols, 'test');
-
   // Render data rows
   table.forEach((product) => {
     // const td = document.createElement("td");
@@ -219,7 +230,12 @@ const renderTableCart = (tableClass, el,table) => {
 
     const priceTd = document.createElement("td");
     priceTd.textContent = product._id.price;
-    subTotal = Number(product._id.price) + subTotal
+
+    subTotal = Number(product._id.price)*Number(product.quantity) + subTotal
+
+    const subTotalTd = document.createElement("td");
+    subTotalTd.textContent = product._id.price*product.quantity;
+
 
     const deleteTd = document.createElement("td");
     const button = document.createElement("button");
@@ -228,13 +244,14 @@ const renderTableCart = (tableClass, el,table) => {
     button.textContent = "Delete";
     button.classList.add("btn", "btn-danger");
 
-    renderTableDataRow(tableClass, {product:product._id.title, quantity: product.quantity},[priceTd, deleteTd]);
+    renderTableDataRow(tableClass, {product:product._id.title, quantity: product.quantity},[priceTd, subTotalTd, deleteTd]);
   });
 
-  renderTableDataRow(tableClass, {product:'Total', quantity: '', subTotal},[]);
+  renderTableDataRow(tableClass, {product:'Total', quantity: '', price:'', subTotal},[]);
 
   const button = document.createElement('button')
   button.textContent='Comprar'
+  button.classList.add('btn','btn-primary')
   button.addEventListener("click", (e) => handleMakePurchaseTicket(e));
   el.appendChild(button)
 
