@@ -1,7 +1,7 @@
 // import { cartsManager as manager } from "../dao/cartsManager.js"
 import mongoose from 'mongoose';
 import { cartsService } from "../../services/carts.service.js";
-import { ticketsService } from '../../services/tickets.service.js';
+import { ordersService } from '../../services/orders.service.js';
 
 //creating cart
 export async function postController(req, res) {
@@ -91,20 +91,6 @@ export async function deleteProductFromCartController(req, res) {
         })
     }
 }
-
-
-export async function makePurchaseTicketController(req, res) {
-    const cid = req.params.cid
-    const userEmail = req.user.email
-    try {
-        const pojo = await ticketsService.add(cid, userEmail)
-        res.status(201).json(pojo)
-    } catch (error) {
-        res.status(400).json({message:error.message})
-    }
-}
-
-
 
 
 //additional to the challenge. 

@@ -93,7 +93,7 @@ const handleADDProductToCart = async (e, pid) => {
 
 const makePurchaseTicket = async (cid) => {
   const response = await httpClient(
-    `/api/carts/${cid}/purchase`,
+    `/api/orders/${cid}`,
     "POST",
   );
   if (!response.ok) {

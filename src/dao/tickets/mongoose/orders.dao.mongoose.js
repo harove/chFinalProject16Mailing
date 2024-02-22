@@ -1,9 +1,9 @@
 import { cartsService } from "../../../services/carts.service.js";
 import { productsService } from "../../../services/products.service.js";
 
-export class TicketsDaoMongoose {
-  constructor(ticketsModel) {
-    this.ticketsModel = ticketsModel;
+export class OrdersDaoMongoose {
+  constructor(ordersModel) {
+    this.ordersModel = ordersModel;
   }
 
   async add(cid, email) {
@@ -34,12 +34,11 @@ export class TicketsDaoMongoose {
     }
 
     try {
-      const document = await this.ticketsModel.create({
+      const document = await this.ordersModel.create({
         purchaseDatetime: new Date(),
         amount,
         purchaser: email,
       });
-      console.log(JSON.stringify(document.toObject(), null, 2));
       return document.toObject();
     } catch (error) {
       console.log(error.message);
@@ -47,19 +46,19 @@ export class TicketsDaoMongoose {
   }
 
   async find(query) {
-    return await this.ticketsModel.find(query).lean();
+    return await this.ordersModel.find(query).lean();
   }
 
   async findById(query) {
-    return await this.ticketsModel.findById(query).lean();
+    return await this.ordersModel.findById(query).lean();
   }
 
   async findByIdAndUpdate(id, query, options) {
-    return await this.ticketsModel.findByIdAndUpdate(id, query, options);
+    return await this.ordersModel.findByIdAndUpdate(id, query, options);
   }
 
   async findByIdAndDelete(id) {
-    return await this.ticketsModel.findByIdAndDelete(id);
+    return await this.ordersModel.findByIdAndDelete(id);
   }
 
   async updateOne(query, data) {

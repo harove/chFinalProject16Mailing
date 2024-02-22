@@ -4,6 +4,9 @@ import { cartsRouter } from './carts.router.js';
 import { sesionesRouter } from './sesiones.router.js';
 import { usuariosRouter } from './usuarios.router.js';
 import { respuestasMejoradas } from '../../middlewares/respuestasMejoradas.js';
+import { usuariosMockRouter } from './usuariosMock.router.js';
+import { productsMockRouter } from './productsMock.router.js';
+import { ordersRouter } from './orders.router.js';
 
 
 export const apiRouter = Router()
@@ -18,6 +21,13 @@ apiRouter.use('/products', productsRouter)
 apiRouter.use('/carts', cartsRouter)
 apiRouter.use('/sesiones', sesionesRouter)
 apiRouter.use('/usuarios', usuariosRouter)
+apiRouter.use('/usuarios', usuariosRouter)
+apiRouter.use('/usuariosmock', usuariosMockRouter)
+apiRouter.use('/mockingproducts', productsMockRouter)
+apiRouter.use('/orders', ordersRouter)
+
+
+
 
 apiRouter.use((error, req, res, next) => {
     switch (error.name){
