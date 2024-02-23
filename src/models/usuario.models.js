@@ -50,27 +50,43 @@ export class Usuario {
         this.#first_name = first_name
     }
 
-    get last_name() {
-        return this.#last_name
+    set last_name(last_name) {
+        if (!last_name) throw new Error('El apellido es obligatorio')
+        return this.#last_name = last_name
     }
 
-    get email() {
-        return this.#email
+    set email(email) {
+        if (!email) throw new Error('El email es obligatorio')
+        return this.#email = email
     }
 
-    get age() {
-        return this.#age
+    set age(age) {
+        if (!age) throw new Error('La edad es obligatoria')
+        return this.#age = age
     }
 
-    get password() {
-        return this.#password
+    set password(password) {
+        if (!password) throw new Error('El password es requerido')
+        return this.#password = password
     }
 
-    get cart() {
-        return this.#cart
+    set cart(cart) {
+        return this.#cart = cart
     }
 
-    get rol() {
-        return this.#rol
+    set rol(rol) {
+        return this.#rol = rol
+    }
+
+    toPojo(){
+        return {
+            first_name: this.#first_name,
+            last_name: this.#last_name,
+            email: this.#email,
+            age: this.#age,
+            password: this.#password,
+            cart: this.#cart,
+            rol: this.#rol
+        }
     }
 }

@@ -1,4 +1,5 @@
 import { getDaoUsuarios } from "../dao/usuarios/usuarios.dao.js"
+import { Usuario } from "../models/usuario.models.js"
 
 const usuariosDao = await getDaoUsuarios()
 
@@ -8,7 +9,8 @@ class UsuariosService{
     }
 
     async registrar(userData){
-        return await usuariosDao.registrar(userData)
+        const user = new Usuario(userData)
+        return await usuariosDao.registrar(user.toPojo())
     }
 
     async autenticar(email, password){

@@ -1,10 +1,12 @@
 import { getDaoCarts } from "../dao/carts/carts.dao.js";
+import { Cart } from "../models/cart.model.js";
 
 const cartsDao = await getDaoCarts();
 
 class CartsService {
-  async create(pojo) {
-    return await cartsDao.create(pojo);
+  async create(cartData) {
+    const cart = new Cart(cartData)
+    return await cartsDao.create(cart.toPOJO());
   }
 
   async find(query) {
