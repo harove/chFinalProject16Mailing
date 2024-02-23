@@ -1,13 +1,19 @@
 import { cartsService } from "../../../services/carts.service.js";
 import { productsService } from "../../../services/products.service.js";
+import { randomUUID } from 'crypto'
 
 export class OrdersDaoMongoose {
   constructor(ordersModel) {
     this.ordersModel = ordersModel;
   }
 
-  async add(cid, email) {
-    const cart = await cartsService.findById(cid);
+  async add(id, email) {
+    let cart = null
+    try{
+      cart = await cartsService.findById(id);
+    }catch(error){
+      console.log(error.message)
+    }
 
     let amount = 0
 
@@ -26,7 +32,7 @@ export class OrdersDaoMongoose {
           );
         }
         try{
-          await cartsService.deleteProductFromCart(cid, product._id._id.toString())
+          await cartsService.deleteProductFromCart(id, product._id._id.toString())
         }catch(error){
           console.log('error deleting product from cart',error.message)
         }
@@ -38,7 +44,9 @@ export class OrdersDaoMongoose {
         purchaseDatetime: new Date(),
         amount,
         purchaser: email,
+        code: randomUUID()
       });
+      console.log({document})
       return document.toObject();
     } catch (error) {
       console.log(error.message);

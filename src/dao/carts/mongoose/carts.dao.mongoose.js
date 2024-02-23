@@ -99,8 +99,8 @@ export class CartsDaoMongoose {
 
 
 
-  async findById(query) {
-    return await this.cartsModel.findById(query).populate("products._id");
+  async findById(id) {
+    return await this.cartsModel.findById(id).populate("products._id");
   }
 
   async findByIdAndUpdate(id, query, options) {
