@@ -8,6 +8,9 @@ export function manejoDeErrores(error, req, res, next) {
     case ERROR_NAME.NOT_FOUND:
       res.status(ERROR_TYPE.NOT_FOUND.code)
       break
+    case ERROR_NAME.INTERNAL_ERROR:
+      res.status(ERROR_TYPE.INTERNAL_ERROR.code)
+    break  
     default:
       res.status(500)
   }

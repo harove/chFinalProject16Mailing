@@ -7,7 +7,8 @@ export function newError({message, name, code}){
 
 export const ERROR_NAME = {
     INVALID_DATA: 'INVALID_DATA',
-    NOT_FOUND: 'NOT_FOUND'
+    NOT_FOUND: 'NOT_FOUND',
+    INTERNAL_ERROR: 'INTERNAL_ERROR'
 }
 
 
