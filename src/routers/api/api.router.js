@@ -29,33 +29,33 @@ apiRouter.use('/orders', ordersRouter)
 
 
 
-apiRouter.use((error, req, res, next) => {
-    switch (error.name){
-        case 'INVALID_ARGUMENT':
-            res.status(400)
-            break
-        case 'FAILED_AUTHENTICATION':
-            res.status(401)
-            break
-        case 'FAILED_AUTHORIZATION':
-            res.status(403)
-            break    
-        case 'INTERNAL_ERROR':
-            res.status(500)
-            break
-        case 'AuthenticationError':
-            res.status(401)
-            break
-        default:
-            console.log('no se que pasó')
-            console.log(JSON.stringify(error,null,2))
-            res.status(500)
-    }
+// apiRouter.use((error, req, res, next) => {
+//     switch (error.name){
+//         case 'INVALID_ARGUMENT':
+//             res.status(400)
+//             break
+//         case 'FAILED_AUTHENTICATION':
+//             res.status(401)
+//             break
+//         case 'FAILED_AUTHORIZATION':
+//             res.status(403)
+//             break    
+//         case 'INTERNAL_ERROR':
+//             res.status(500)
+//             break
+//         case 'AuthenticationError':
+//             res.status(401)
+//             break
+//         default:
+//             console.log('no se que pasó')
+//             console.log(JSON.stringify(error,null,2))
+//             res.status(500)
+//     }
 
 
 
-    res.json({
-        status:'error',
-        message: error.message
-    })
-})
+//     res.json({
+//         status:'error',
+//         message: error.message
+//     })
+// })

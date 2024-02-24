@@ -9,8 +9,8 @@ import { authService } from '../../services/auth.service.js';
 export const productsRouter = Router()
 productsRouter.get('/:id', getByIdController)
 productsRouter.get('', getController)
-productsRouter.post('', postController)
-productsRouter.put('/:id', updateController)
+productsRouter.post('', authService.authenticate('local') ,soloRoles(['admin']), postController)
+productsRouter.put('/:id', authService.authenticate('local') ,soloRoles(['admin']), updateController)
 productsRouter.delete('/:id',authService.authenticate('local') ,soloRoles(['admin']), deleteController)
 productsRouter.post('/:id/actualizaciones', updateController)
 

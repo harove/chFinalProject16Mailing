@@ -5,7 +5,6 @@ const productsDao = await getDaoProducts()
 class ProductsService {
     async add(requestBody) {
         const product = new Product(requestBody)
-        console.log(product.toPojo())
         return await productsDao.add(product.toPojo())
     }
 
@@ -17,8 +16,8 @@ class ProductsService {
         return await productsDao.paginate(query, options)
     }
 
-    async findById(query) {
-        return await productsDao.findById(query)
+    async findById(id) {
+        return await productsDao.findById(id)
     }
 
     async findByIdAndUpdate(id,query,options) {

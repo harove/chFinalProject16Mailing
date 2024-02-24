@@ -11,11 +11,24 @@ const totalPagesLinkEl = document.getElementById("totalPages");
 const cartEl = document.getElementById("cartEl");
 cartEl.classList.add("col-xl-2");
 
+
+const createCart = async ()=>{
+  const cartStream = await httpClient(`/api/carts/`, 'post');
+  const cart = await cartStream.json();
+  localStorage.setItem('cart', JSON.stringify(cart))
+  return cart
+}
+
 const freshResponse = async (page=1) => {
   const productsStream = await httpClient(`/api/products?page=${page}`);
   const products = await productsStream.json();
+  let cid = null
+  if (!localStorage.getItem("cart")){
+    createCart()
+  }else{
+    cid = JSON.parse(localStorage.getItem("cart"))._id;
+  }
 
-  let cid = JSON.parse(localStorage.getItem("cart"))._id;
   const cartStream = await httpClient(`/api/carts/${cid}`);
   const cart = await cartStream.json();
 
@@ -26,7 +39,7 @@ const freshCart = async ()=>{
   try{
     var page = new URLSearchParams(window.location.search).get("page");
     const cart = (await freshResponse(page)).cart;
-    renderTableCart('cart-list-table', cartEl, cart[0].products);
+    renderTableCart('cart-list-table', cartEl, cart.products);
   }catch(error){
     console.log(error.message)
   }
@@ -275,7 +288,7 @@ async function handleUrlChange() {
 
     renderPagination(products)
     renderTable('product-list-table', productListEl, products.payload);
-    renderTableCart('cart-list-table', cartEl, cart[0].products);
+    renderTableCart('cart-list-table', cartEl, cart.products);
   }
 }
 

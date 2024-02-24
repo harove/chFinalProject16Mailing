@@ -1,18 +1,19 @@
-import { ErrorType } from '../errors/errors.js'
+import { ERROR_NAME, ERROR_TYPE } from '../errors/errors.js'
 
 export function manejoDeErrores(error, req, res, next) {
   switch (error.name) {
-    case ErrorType.INVALID_DATA:
-      res.status(400)
+    case ERROR_NAME.INVALID_DATA:
+      res.status(ERROR_TYPE.INVALID_DATA.code)
       break
-    case ErrorType.NOT_FOUND:
-      res.status(404)
+    case ERROR_NAME.NOT_FOUND:
+      res.status(ERROR_TYPE.NOT_FOUND.code)
       break
     default:
       res.status(500)
   }
   res.json({
     status: 'error',
+    type: error.name,
     message: error.message
   })
 }

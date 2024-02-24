@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import { ERROR_TYPE, newError } from "../../../errors/errors.js";
+
 
 export class CartsDaoMongoose {
   constructor(cartsModel) {
@@ -6,8 +8,12 @@ export class CartsDaoMongoose {
   }
 
   async create(pojo) {
-    const document = await this.cartsModel.create(pojo);
-    return document.toObject();
+    try{
+      const document = await this.cartsModel.create(pojo);
+      return document.toObject();
+    }catch(error){
+      throw newError({...ERROR_TYPE.INTERNAL_ERROR, message: error.message });
+    }
   }
 
   async paginate(query, options) {
@@ -15,7 +21,11 @@ export class CartsDaoMongoose {
   }
 
   async find(query) {
-    return await this.cartsModel.find(query).lean();
+    try{
+      return await this.cartsModel.find(query).lean();
+    }catch(error){
+      throw newError({...ERROR_TYPE.NOT_FOUND, message: error.message });
+    }
   }
 
   async addProductToCart(cid, pid) {
@@ -30,9 +40,7 @@ export class CartsDaoMongoose {
       await cart.save()
       return cart
     } catch (error) {
-      const typedError = new Error(error.message);
-      typedError["name"] = "INTERNAL_ERROR";
-      throw typedError;
+      throw newError({...ERROR_TYPE.INTERNAL_ERROR, message: error.message });
     }
   }
 
@@ -43,18 +51,14 @@ export class CartsDaoMongoose {
         return product._id._id.toString() === pid;
       });
       if (pidIndex === -1) {
-        const typedError = new Error("Product not found");
-        typedError["name"] = "NOT_FOUND_ERROR";
-        throw typedError;
+        throw newError({...ERROR_TYPE.NOT_FOUND});
       } else {
         cart.products[pidIndex].quantity = quantity;
       }
       await cart.save();
       return cart;
     } catch (error) {
-      const typedError = new Error(error.message);
-      typedError["name"] = "INTERNAL_ERROR";
-      throw typedError;
+      throw newError({...ERROR_TYPE.INVALID_DATA, message:error.message });
     }
   }
 
@@ -72,9 +76,7 @@ export class CartsDaoMongoose {
       await cart.save()
       return cart
     } catch (error) {
-      const typedError = new Error(error.message);
-      typedError["name"] = "INTERNAL_ERROR";
-      throw typedError;
+      throw newError({...ERROR_TYPE.INTERNAL_ERROR, message:error.message });
     }
   }
 
@@ -89,9 +91,7 @@ export class CartsDaoMongoose {
       }
       return cart
     } catch (error) {
-      const typedError = new Error(error.message);
-      typedError["name"] = "INTERNAL_ERROR";
-      throw typedError;
+      throw newError({...ERROR_TYPE.INVALID_DATA, message:error.message });
     }
   }
   

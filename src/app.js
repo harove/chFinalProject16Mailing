@@ -12,6 +12,7 @@ import { passportInitialize } from './middlewares/autenticaciones.js'
 import { cookies } from './middlewares/cookies.js'
 import 'dotenv/config'
 import { productsService } from './services/products.service.js'
+import { manejoDeErrores } from './middlewares/manejoDeErrores.js'
 
 // import {  } from './midlewares/midlewares.js'
 
@@ -58,6 +59,8 @@ app.use((req,res,next)=>{
 app.use('/api',apiRouter)
 app.use('/',webRouter)
 
+
+app.use(manejoDeErrores)
 
 
 app.use((req, res, next) => {

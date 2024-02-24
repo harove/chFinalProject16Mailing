@@ -1,3 +1,5 @@
+import { newError, ERROR_TYPE } from "../errors/errors.js"
+
 export class Product {
     #_id
     #title
@@ -9,15 +11,15 @@ export class Product {
     #category
     #thumbnails
     constructor({_id,  title, description, code, price, status, stock, category, thumbnails}){
-        this.#_id = _id
-        this.#title = title 
-        this.#description = description 
-        this.#code = code 
-        this.#price = price 
-        this.#status = status 
-        this.#stock = stock 
-        this.#category = category 
-        this.#thumbnails = thumbnails 
+        this._id = _id
+        this.title = title 
+        this.description = description 
+        this.code = code 
+        this.price = price 
+        this.status = status 
+        this.stock = stock 
+        this.category = category 
+        this.thumbnails = thumbnails 
     }
 
     get title() {
@@ -53,22 +55,26 @@ export class Product {
     }
 
     set title(title) {
-        if (!title) throw new Error('El title es obligatorio')
+        if (!title) 
+        throw newError({...ERROR_TYPE.INVALID_DATA, message: 'El campo title es requerido' });
         this.#title = title
     }
 
     set description(description) {
-        if (!description) throw new Error('El campo description es obligatorio')
+        if (!description) 
+        throw newError({...ERROR_TYPE.INVALID_DATA, message: 'El campo description es requerido' });
         return this.#description = description
     }
 
     set code(code) {
-        if (!code) throw new Error('El campo code es obligatorio')
+        if (!code)
+        throw newError({...ERROR_TYPE.INVALID_DATA, message: 'El campo code es requerido' });
         return this.#code = code
     }
 
     set price(price) {
-        if (!price) throw new Error('El campo price es obligatorio')
+        if (!price)
+        throw newError({...ERROR_TYPE.INVALID_DATA, message: 'El campo price es requerido' });
         return this.#price = price
     }
 
@@ -77,7 +83,8 @@ export class Product {
     }
 
     set stock(stock) {
-        if (!price) throw new Error('El campo price es obligatorio')
+        if (!stock)
+        throw newError({...ERROR_TYPE.INVALID_DATA, message: 'El campo stock es requerido' });
         return this.#stock = stock
     }
 
