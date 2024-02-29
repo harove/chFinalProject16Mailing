@@ -2,6 +2,7 @@ import mongoose, {Schema, Types} from "mongoose"
 import { randomUUID } from "node:crypto"
 import { hasheadasSonIguales, hashear } from '../../../utils/criptografia.js'
 import { ADMIN_EMAIL, DEFAULT_USER_AVATAR_PATH } from "../../../config.js"
+import { cartsService } from "../../../services/carts.service.js"
 
 
 export const usuariosSchema = new Schema({
@@ -32,6 +33,8 @@ export const usuariosSchema = new Schema({
                     userData.password = hashear(userData.password)
                 }
                 asignar_rol(userData)
+                const cart = await cartsService.create()
+                userData.cart = cart._id
                 const user = await this.create(userData)
                 return user.toObject()
             } catch(error){

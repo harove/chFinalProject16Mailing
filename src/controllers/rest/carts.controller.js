@@ -6,13 +6,12 @@ import { ERROR_TYPE, newError } from '../../errors/errors.js';
 
 //creating cart
 export async function postController(req, res, next) {
-    const pojo = req.body
     try {
-        const document = await cartsService.create(pojo)
+        const pojo = await cartsService.create()
         // const pojos = await manager.findAll()
-        const pojos = await cartsService.find()
-        pojos.push(pojo)
-        res.json(document)
+        // const pojos = await cartsService.find()
+        // pojos.push(pojo)
+        res.json(pojo)
     } catch (error) {
         next(error)
     }

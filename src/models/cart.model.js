@@ -1,9 +1,9 @@
 export class Cart {
     #_id
     #products
-    constructor({ _id, products }) {
-        this._id = _id
-        this.products = products
+    constructor() {
+        this._id = undefined
+        this.products = undefined
     }
 
     get products(){

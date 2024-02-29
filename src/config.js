@@ -13,6 +13,9 @@ export const COOKIE_OPTIONS = {
     httpOnly: true,
     maxAge: 1000*60*60*24,
     signed: true,
+    path: '/',
+    domain: 'localhost',
+    expires: new Date(1), 
 }
 export const JWT_PRIVATE_KEY = process.env.JWT_PRIVATE_KEY
 export const DEFAULT_USER_AVATAR_PATH = './static/imgs/default-user.webp'

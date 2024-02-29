@@ -46,7 +46,6 @@ export class OrdersDaoMongoose {
         purchaser: email,
         code: randomUUID()
       });
-      console.log({document})
       return document.toObject();
     } catch (error) {
       console.log(error.message);

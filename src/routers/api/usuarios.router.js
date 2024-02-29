@@ -4,6 +4,11 @@ import { tokenizeUserInCookie } from "../../middlewares/tokens.js";
 import { soloRoles } from "../../middlewares/authorization.js";
 import { usuariosService } from "../../services/usuarios.service.js";
 import { authService } from "../../services/auth.service.js";
+import {
+  findAllUsersController,
+  getCurrentController,
+  registrarController,
+} from "../../controllers/rest/usuarios.controller.js";
 
 export const usuariosRouter = Router();
 
@@ -48,41 +53,17 @@ export const usuariosRouter = Router();
 //   }
 // })
 
-usuariosRouter.post(
-  "/",
-  async (req, res, next) => {
-    try {
-      const user = await usuariosService.registrar(req.body);
-      req.user = user;
-      next();
-    } catch (error) {
-      next(error);
-    }
-  },
-  tokenizeUserInCookie,
-  (req, res) => {
-    res.status(201).json(req.user);
-  }
-);
+usuariosRouter.post("/", registrarController);
 
 usuariosRouter.get(
   "/current",
   authService.authenticate("local"),
-  async (req, res, next) => {
-    res.json(req.user);
-  }
+  getCurrentController
 );
 
 usuariosRouter.get(
   "/findAll",
   authService.authenticate("local"),
   soloRoles(["admin"]),
-  async (req, res, next) => {
-    try {
-      const users = await usuariosService.find();
-      res.json(users);
-    } catch (error) {
-      next(error);
-    }
-  }
+  findAllUsersController
 );

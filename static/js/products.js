@@ -19,14 +19,21 @@ const createCart = async ()=>{
   return cart
 }
 
+const getUserCart = async ()=>{
+  const userStream = await httpClient(`/api/usuarios/current`);
+  const user = await userStream.json();
+  localStorage.setItem('cart', JSON.stringify(user.cart))
+  return cart
+}
+
 const freshResponse = async (page=1) => {
   const productsStream = await httpClient(`/api/products?page=${page}`);
   const products = await productsStream.json();
   let cid = null
   if (!localStorage.getItem("cart")){
-    createCart()
+    getUserCart()
   }else{
-    cid = JSON.parse(localStorage.getItem("cart"))._id;
+    cid = JSON.parse(localStorage.getItem("cart"));
   }
 
   const cartStream = await httpClient(`/api/carts/${cid}`);
@@ -58,47 +65,52 @@ const freshProducts = async ()=>{
 
 
 const deleteProductFromCart = async (cid, pid) => {
-  const response = await httpClient(
+  const stream = await httpClient(
     `/api/carts/${cid}/products/${pid}`,
     "DELETE"
   );
-  if (!response.ok) {
-    throw new Error("Failed deleting a product");
+  if (!stream.ok) {
+    const error = await stream.json();
+    throw new Error(error.message)
   }
+  const cart = await stream.json();
   await freshCart()
 
 };
 
 const addProductToCart = async (cid, pid) => {
-  const response = await httpClient(
+  const stream = await httpClient(
     `/api/carts/${cid}/products/${pid}`,
     "POST"
   );
-  if (!response.ok) {
-    throw new Error("Failed addin a product");
+  if (!stream.ok) {
+    const error = await stream.json();
+    throw new Error(error.message)
   }
-  const cart = await response.json();
+  const cart = await stream.json();
+  return true
 };
 
 const handleDeleteProduct = async (e, pid) => {
   e.preventDefault();
-  const response = await httpClient(`/api/products/${pid}`, "DELETE");
-  if (!response.ok) {
-    throw new Error("Failed deleting a product");
+  const stream = await httpClient(`/api/products/${pid}`, "DELETE");
+  if (!stream.ok) {
+    const error = await stream.json();
+    throw new Error(error.message)
   }
-  const product = await response.json();
+  const product = await stream.json();
   await freshProducts()
 };
 
 const handleDeleteProductFromCart = async (e, pid) => {
   e.preventDefault();
-  let cid = JSON.parse(localStorage.getItem("cart"))._id;
+  let cid = JSON.parse(localStorage.getItem("cart"));
   await deleteProductFromCart(cid, pid);
 };
 
 const handleADDProductToCart = async (e, pid) => {
   e.preventDefault();
-  let cid = JSON.parse(localStorage.getItem("cart"))._id;
+  let cid = JSON.parse(localStorage.getItem("cart"));
   await addProductToCart(cid, pid);
   await freshCart()
 };
@@ -117,7 +129,7 @@ const makePurchaseTicket = async (cid) => {
 
 const handleMakePurchaseTicket = async (e) => {
   e.preventDefault();
-  let cid = JSON.parse(localStorage.getItem("cart"))._id;
+  let cid = JSON.parse(localStorage.getItem("cart"));
   await makePurchaseTicket(cid);
   await freshCart()
   await freshProducts()
@@ -283,12 +295,15 @@ async function handleUrlChange() {
 
     // Do something with the page number
 
-    const products = (await freshResponse(page)).products;
-    const cart = (await freshResponse(page)).cart;
+    const data = await freshResponse(page)
+    const products = data.products;
+    const cart = data.cart;
 
     renderPagination(products)
     renderTable('product-list-table', productListEl, products.payload);
-    renderTableCart('cart-list-table', cartEl, cart.products);
+    if (cart && cart.products){
+      renderTableCart('cart-list-table', cartEl, cart.products);
+    }
   }
 }
 

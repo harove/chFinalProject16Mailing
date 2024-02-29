@@ -3,6 +3,7 @@ import { deleteTokenFromCookie, tokenizeUserInCookie } from '../../middlewares/t
 import passport from 'passport'
 import { usuariosService } from '../../services/usuarios.service.js'
 import { authService } from '../../services/auth.service.js'
+import { autenticarController, deleteController, gerCurrentController } from '../../controllers/rest/sesiones.controller.js'
 
 export const sesionesRouter = Router()
 
@@ -28,34 +29,8 @@ export const sesionesRouter = Router()
 //   })
 // })
 
-sesionesRouter.get('/current', 
-    authService.authenticate("local"),
-    async (req, res, next) =>{
-        const user = {...req.user}
-        delete user.password
-        res.json(user)
-    }
-)
+sesionesRouter.get('/current', authService.authenticate("local"), gerCurrentController)
 
-sesionesRouter.delete('/current',
-    deleteTokenFromCookie,
-    (req, res, next)=>{
-        res.status(204).end()
-    }
-)
+sesionesRouter.delete('/current', deleteController)
 
-sesionesRouter.post('/', 
-    async (req, res, next)=>{
-        try {
-            const user = await usuariosService.autenticar(req.body.email, req.body.password)
-            req.user = user
-            next()
-        }catch(error){
-            next(error)
-        }
-    },
-    tokenizeUserInCookie,
-    (req, res)=>{
-        res.status(201).json(req.user)
-    }
-)
+sesionesRouter.post('/', autenticarController)

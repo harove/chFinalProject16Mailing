@@ -13,6 +13,6 @@ export async function tokenizeUserInCookie(req, res, next){
 }
 
 export async function deleteTokenFromCookie(req, res, next){
-    res.clearCookie('authorization', COOKIE_OPTIONS)
+    res.cookie('authorization', {...COOKIE_OPTIONS, maxAge:0})
     next()
 }

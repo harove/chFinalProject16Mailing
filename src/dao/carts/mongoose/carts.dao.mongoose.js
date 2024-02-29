@@ -7,9 +7,9 @@ export class CartsDaoMongoose {
     this.cartsModel = cartsModel;
   }
 
-  async create(pojo) {
+  async create() {
     try{
-      const document = await this.cartsModel.create(pojo);
+      const document = await this.cartsModel.create({});
       return document.toObject();
     }catch(error){
       throw newError({...ERROR_TYPE.INTERNAL_ERROR, message: error.message });
@@ -95,9 +95,6 @@ export class CartsDaoMongoose {
     }
   }
   
-
-
-
 
   async findById(id) {
     return await this.cartsModel.findById(id).populate("products._id");
