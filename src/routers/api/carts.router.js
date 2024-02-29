@@ -10,8 +10,8 @@ cartsRouter.post('/:cid/products/:pid',
 //     console.log('test')
 //     next()
 // }
-authService.authenticate('local'), soloRoles(['user','admin']), addProductToCartController)
-cartsRouter.delete('/:cid/products/:pid', authService.authenticate('local'), soloRoles(['admin']), deleteProductFromCartController)
+authService.authenticate('local'), soloRoles(['user']), addProductToCartController)
+cartsRouter.delete('/:cid/products/:pid', authService.authenticate('local'), soloRoles(['user']), deleteProductFromCartController)
 cartsRouter.put('/:cid/products/:pid', updateQuantityOfProductFromCartController)
 cartsRouter.delete('/:cid/products', deleteAllProductsFromCartController)
 cartsRouter.post('/', postController)
