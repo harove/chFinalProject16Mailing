@@ -1,5 +1,5 @@
 import { connect, model } from "mongoose"
-import { MODO_EJECUCION, MONGODB_CNX_STR } from "../../config.js"
+import { MODO_EJECUCION, MONGODB_CNX_STR } from "../../config/config.js"
 import ordersSchema from "./mongoose/orders.schema.mongoose.js"
 import { OrdersDaoMongoose } from "./mongoose/orders.dao.mongoose.js"
 

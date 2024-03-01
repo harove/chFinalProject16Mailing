@@ -2,7 +2,7 @@ import passport from 'passport'
 import {Strategy as LocalStrategy} from 'passport-local'
 import {Strategy as GithubStrategy} from 'passport-github2'
 import {Strategy as JwtStrategy, ExtractJwt }  from 'passport-jwt'
-import { GITHUB_CALLBACK_URL, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, JWT_PRIVATE_KEY } from '../config.js'
+import { GITHUB_CALLBACK_URL, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, JWT_PRIVATE_KEY } from '../config/config.js'
 
 
 // async function verificationCallback(username, password, done) {

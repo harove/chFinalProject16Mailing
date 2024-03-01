@@ -1,7 +1,7 @@
 import mongoose, {Schema, Types} from "mongoose"
 import { randomUUID } from "node:crypto"
 import { hasheadasSonIguales, hashear } from '../../../utils/criptografia.js'
-import { ADMIN_EMAIL, DEFAULT_USER_AVATAR_PATH } from "../../../config.js"
+import { ADMIN_EMAIL, DEFAULT_USER_AVATAR_PATH } from "../../../config/config.js"
 import { cartsService } from "../../../services/carts.service.js"
 
 

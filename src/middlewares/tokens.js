@@ -1,5 +1,5 @@
 
-import { COOKIE_OPTIONS } from "../config.js"
+import { COOKIE_OPTIONS } from "../config/config.js"
 import { encriptar } from "../utils/criptografia.js"
 
 export async function tokenizeUserInCookie(req, res, next){
