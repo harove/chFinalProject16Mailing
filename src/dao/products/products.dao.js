@@ -2,6 +2,7 @@ import { connect, model } from "mongoose"
 import { MODO_EJECUCION, MONGODB_CNX_STR } from "../../config/config.js"
 import { ProductsDaoMongoose } from "./mongoose/products.dao.mongoose.js"
 import productsSchema from "./mongoose/products.schema.mongoose.js"
+import { logger } from "../../utils/logger.js"
 
 let daoProducts
 
@@ -10,7 +11,7 @@ if (MODO_EJECUCION === 'online') {
       await connect(MONGODB_CNX_STR)
       const productsModel = model('products', productsSchema )
       daoProducts = new ProductsDaoMongoose(productsModel)
-      console.log('persistiendo products en: mongodb')
+      logger.info('persistiendo products en: mongodb')
     }
 }
 

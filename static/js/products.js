@@ -1,3 +1,4 @@
+import { logger } from "../../src/utils/logger.js";
 import { httpClient } from "./httpClient.js";
 // Retrieve the payload data from the data attribute
 
@@ -59,7 +60,7 @@ const freshProducts = async ()=>{
     const products = (await freshResponse(page)).products;
     renderTable('product-list-table', productListEl, products.payload);
   }catch(error){
-    console.log(error.message)
+    logger.error(error.message)
   }
 }
 

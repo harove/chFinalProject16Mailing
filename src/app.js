@@ -13,6 +13,7 @@ import 'dotenv/config'
 import { productsService } from './services/products.service.js'
 import { manejoDeErrores } from './middlewares/manejoDeErrores.js'
 import { MONGODB_CNX_STR } from './config/config.js'
+import { logger } from './utils/logger.js'
 
 // import {  } from './midlewares/midlewares.js'
 
@@ -40,7 +41,7 @@ app.use('/static', express.static('./static'))
 
 //Para saber en que puerto esta funcionando.
 const server = app.listen(PORT, ()=> {
-    console.log(`Server ON: ${PORT}`)
+    logger.info(`Server ON: ${PORT}`)
 })
 
 const webSocketServer = new Server(server)
@@ -58,6 +59,7 @@ app.use((req,res,next)=>{
 //Routers
 app.use('/api',apiRouter)
 app.use('/',webRouter)
+
 
 
 app.use(manejoDeErrores)

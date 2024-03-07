@@ -21,3 +21,21 @@ export const JWT_PRIVATE_KEY = process.env.JWT_PRIVATE_KEY
 export const DEFAULT_USER_AVATAR_PATH = './static/imgs/default-user.webp'
 export const MODO_EJECUCION = 'online'
 // export const MODO_EJECUCION = 'offline'
+
+export const NODE_ENV = process.env.NODE_ENV || 'development'
+
+export const loggerLevel = {
+  CONSOLE: NODE_ENV === 'production' ? 'info' : 'debug',
+  FILE: 'error'
+}
+
+export const logLevels = {
+    fatal: 0,
+    error: 1,
+    warning: 2,
+    info: 3,
+    http: 4,
+    debug: 5,
+  };
+
+  export const loggerFile =  './logs/errors.log'

@@ -2,6 +2,7 @@ import { connect, model } from 'mongoose'
 import { MODO_EJECUCION, MONGODB_CNX_STR } from '../../config/config.js'
 import { UsuariosDaoMongoose } from './mongoose/usuarios.dao.mongoose.js'
 import { usuariosSchema } from './mongoose/usuarios.schema.mongoose.js'
+import { logger } from '../../utils/logger.js'
 
 let daoUsuarios
 
@@ -10,7 +11,7 @@ if (MODO_EJECUCION === 'online') {
     await connect(MONGODB_CNX_STR)
     const usuariosModel = model('usuarios', usuariosSchema)
     daoUsuarios = new UsuariosDaoMongoose(usuariosModel)
-    console.log('usuando dao usuarios mongoose')
+    logger.info('usuando dao usuarios mongoose')
   }
 }
 

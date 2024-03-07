@@ -1,6 +1,7 @@
 import { cartsService } from "../../../services/carts.service.js";
 import { productsService } from "../../../services/products.service.js";
 import { randomUUID } from 'crypto'
+import { logger } from "../../../utils/logger.js";
 
 export class OrdersDaoMongoose {
   constructor(ordersModel) {
@@ -12,7 +13,7 @@ export class OrdersDaoMongoose {
     try{
       cart = await cartsService.findById(id);
     }catch(error){
-      console.log(error.message)
+      logger.error(error.message)
     }
 
     let amount = 0
@@ -34,7 +35,7 @@ export class OrdersDaoMongoose {
         try{
           await cartsService.deleteProductFromCart(id, product._id._id.toString())
         }catch(error){
-          console.log('error deleting product from cart',error.message)
+          logger.fatal('error deleting product from cart',error.message)
         }
       }
     }
@@ -48,7 +49,7 @@ export class OrdersDaoMongoose {
       });
       return document.toObject();
     } catch (error) {
-      console.log(error.message);
+      logger.fatal(error.message);
     }
   }
 

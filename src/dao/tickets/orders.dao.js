@@ -2,6 +2,7 @@ import { connect, model } from "mongoose"
 import { MODO_EJECUCION, MONGODB_CNX_STR } from "../../config/config.js"
 import ordersSchema from "./mongoose/orders.schema.mongoose.js"
 import { OrdersDaoMongoose } from "./mongoose/orders.dao.mongoose.js"
+import { logger } from "../../utils/logger.js"
 
 let daoOrders
 
@@ -10,7 +11,7 @@ if (MODO_EJECUCION === 'online') {
       await connect(MONGODB_CNX_STR)
       const ordersModel = model('tickets', ordersSchema )
       daoOrders = new OrdersDaoMongoose(ordersModel)
-      console.log('persistiendo tickets en: mongodb')
+      logger.info('persistiendo tickets en: mongodb')
     }
 }
 

@@ -4,6 +4,7 @@ import passport from 'passport'
 import { usuariosService } from '../../services/usuarios.service.js'
 import { authService } from '../../services/auth.service.js'
 import { autenticarController, deleteController, gerCurrentController } from '../../controllers/rest/sesiones.controller.js'
+import { consoleLog } from '../../middlewares/consoleLog.js'
 
 export const sesionesRouter = Router()
 
@@ -31,6 +32,6 @@ export const sesionesRouter = Router()
 
 sesionesRouter.get('/current', authService.authenticate("local"), gerCurrentController)
 
-sesionesRouter.delete('/current', deleteController)
+sesionesRouter.delete('/current', consoleLog, deleteController)
 
 sesionesRouter.post('/', autenticarController)
