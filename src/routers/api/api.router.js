@@ -7,6 +7,8 @@ import { respuestasMejoradas } from '../../middlewares/respuestasMejoradas.js';
 import { usuariosMockRouter } from './usuariosMock.router.js';
 import { productsMockRouter } from './productsMock.router.js';
 import { ordersRouter } from './orders.router.js';
+import { mapsRouter } from './maps.router.js';
+import { iplocationRouter } from './iplocation.router.js';
 
 
 export const apiRouter = Router()
@@ -24,6 +26,8 @@ apiRouter.use('/usuarios', usuariosRouter)
 apiRouter.use('/usuariosmock', usuariosMockRouter)
 apiRouter.use('/mockingproducts', productsMockRouter)
 apiRouter.use('/orders', ordersRouter)
+apiRouter.use('/maps', mapsRouter)
+apiRouter.use('/iplocation', iplocationRouter)
 
 
 

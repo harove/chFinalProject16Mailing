@@ -2,7 +2,7 @@ import { connect, model } from 'mongoose'
 import { MODO_EJECUCION, MONGODB_CNX_STR } from '../../config/config.js'
 import { UsuariosDaoMongoose } from './mongoose/usuarios.dao.mongoose.js'
 import { usuariosSchema } from './mongoose/usuarios.schema.mongoose.js'
-import { logger } from '../../utils/logger.js'
+import { logger } from '../../utils/logger2.js'
 
 let daoUsuarios
 

@@ -1,5 +1,6 @@
-import { logger } from "../../src/utils/logger.js";
+
 import { httpClient } from "./httpClient.js";
+// import { logger } from "../../src/utils/logger2.js";
 // Retrieve the payload data from the data attribute
 
 const productListEl = document.getElementById("productListEl");
@@ -24,7 +25,7 @@ const getUserCart = async ()=>{
   const userStream = await httpClient(`/api/usuarios/current`);
   const user = await userStream.json();
   localStorage.setItem('cart', JSON.stringify(user.cart))
-  return cart
+  return user.cart
 }
 
 const freshResponse = async (page=1) => {
@@ -60,7 +61,7 @@ const freshProducts = async ()=>{
     const products = (await freshResponse(page)).products;
     renderTable('product-list-table', productListEl, products.payload);
   }catch(error){
-    logger.error(error.message)
+    // logger.error(error.message)
   }
 }
 
@@ -307,6 +308,17 @@ async function handleUrlChange() {
     }
   }
 }
+
+
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(function(position) {
+      console.log(position.coords.latitude);
+      console.log(position.coords.longitude);
+      console.log(position)
+  });
+}
+
+
 
 // Attach the handleUrlChange function to the hashchange event
 window.addEventListener("hashchange", handleUrlChange);

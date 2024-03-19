@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.3.42",
+    "@maxmind/geoip2-node": "^5.0.0",
     "bcrypt": "^5.1.1",
     "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.6",
@@ -22,6 +24,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
     "mongoose-paginate-v2": "^1.7.4",
+    "node-ipinfo": "^3.5.1",
     "nodemailer": "^6.9.9",
     "passport": "^0.7.0",
     "passport-github2": "^0.1.12",
@@ -32,6 +35,8 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
+    "@types/mocha": "^10.0.6",
+    "mocha": "^10.3.0",
     "nodemon": "^3.0.1"
   }
 }

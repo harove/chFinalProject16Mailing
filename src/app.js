@@ -13,7 +13,7 @@ import 'dotenv/config'
 import { productsService } from './services/products.service.js'
 import { manejoDeErrores } from './middlewares/manejoDeErrores.js'
 import { MONGODB_CNX_STR } from './config/config.js'
-import { logger } from './utils/logger.js'
+import { logger } from './utils/logger2.js'
 
 // import {  } from './midlewares/midlewares.js'
 

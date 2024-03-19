@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { MONGODB_CNX_STR } from "../config/config.js";
-import { logger } from "../utils/logger.js";
+import { logger } from "../utils/logger2.js";
 
 
 try {

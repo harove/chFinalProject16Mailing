@@ -1,7 +1,7 @@
 import { cartsService } from "../../../services/carts.service.js";
 import { productsService } from "../../../services/products.service.js";
 import { randomUUID } from 'crypto'
-import { logger } from "../../../utils/logger.js";
+import { logger } from "../../../utils/logger2.js";
 
 export class OrdersDaoMongoose {
   constructor(ordersModel) {

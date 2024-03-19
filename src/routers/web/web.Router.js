@@ -4,7 +4,7 @@ import { onlyLogueadosWeb } from "../../middlewares/autorizacion.js";
 import { productsRouter } from "./products.router.js";
 import passport from "passport";
 import { productsService } from "../../services/products.service.js";
-import { logger } from "../../utils/logger.js";
+import { logger } from "../../utils/logger2.js";
 
 export const webRouter = Router();
 

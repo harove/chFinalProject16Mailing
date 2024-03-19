@@ -38,4 +38,13 @@ export const logLevels = {
     debug: 5,
   };
 
-  export const loggerFile =  './logs/errors.log'
+export const loggerFile =  './logs/errors.log'
+
+export const NODEMAILER_GMAIL_OPTIONS = {
+    service: 'gmail',
+    port: '587',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+}
