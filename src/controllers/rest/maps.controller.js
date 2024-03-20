@@ -1,6 +1,5 @@
-import { ipinfoService } from "../../services/ipinfo.service.js"
+import { geoIpService } from "../../services/geoIp.service.js"
 import { mapsService } from "../../services/maps.service.js"
-import { maxmindService } from "../../services/maxmind.service.js"
 
 
 export async function geocodeController(req, res) {
@@ -17,7 +16,7 @@ export async function geocodeController(req, res) {
 export async function getCityFromIp(req, res) {
     const address = req.params.ipAddress
     try {
-        const pojo = await maxmindService.getCityFromIp(address)
+        const pojo = await geoIpService.getCityFromIp(address)
         res.status(201).json(pojo)
     } catch (error) {
         res.status(400).json({message:error.message})

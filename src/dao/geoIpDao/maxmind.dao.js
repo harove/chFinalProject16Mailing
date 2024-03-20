@@ -1,11 +1,11 @@
-import { IPinfoWrapper } from "node-ipinfo";
+import {WebServiceClient}   from '@maxmind/geoip2-node';
 
-const ipinfoWrapper = new IPinfoWrapper(process.env.IP_INFO_TOKEN);
+const client = new WebServiceClient('988530', process.env.MAXMIND_KEY, {host: 'geolite.info'});
 
-class IpinfoService {
+export class MaxmindDao {
   async getCityFromIp(address) {
     try {
-      const response = await ipinfoWrapper.lookupIp(address);
+      const response = await client.city(address);
       console.log(JSON.stringify(response,null,2))
       if (response.city) {
         return response
@@ -18,5 +18,3 @@ class IpinfoService {
     }
   }
 }
-
-export const ipinfoService = new IpinfoService();
