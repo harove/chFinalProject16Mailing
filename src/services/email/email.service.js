@@ -1,7 +1,8 @@
-import { MODO_EJECUCION, NODEMAILER_GMAIL_OPTIONS } from "../../config/config"
-import { logger } from "../../utils/logger"
-import { EmailServiceConsola } from "./email.service.consola"
-import { EmailServiceNodemailer } from "./email.service.nodemailer"
+import { MODO_EJECUCION, NODEMAILER_GMAIL_OPTIONS } from "../../config/config.js"
+import { logger } from "../../utils/logger2.js"
+
+import { EmailServiceConsola } from "./email.service.consola.js"
+import { EmailServiceNodemailer } from "./email.service.nodemailer.js"
 
 let emailService
 

@@ -6,7 +6,7 @@ import { logger } from "../../utils/logger2.js"
 
 let daoProducts
 
-if (MODO_EJECUCION === 'online') {
+if (MODO_EJECUCION === 'online' || 'development') {
     if (!daoProducts) {
       await connect(MONGODB_CNX_STR)
       const productsModel = model('products', productsSchema )

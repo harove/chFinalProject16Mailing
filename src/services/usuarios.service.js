@@ -4,6 +4,7 @@ import { Usuario } from "../models/usuario.models.js"
 const usuariosDao = await getDaoUsuarios()
 
 class UsuariosService{
+    constructor(){}
     async find(query){
         return await usuariosDao.find(query)
     }

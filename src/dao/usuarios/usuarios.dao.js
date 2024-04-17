@@ -6,7 +6,7 @@ import { logger } from '../../utils/logger2.js'
 
 let daoUsuarios
 
-if (MODO_EJECUCION === 'online') {
+if (MODO_EJECUCION === 'online' || 'development' ) {
   if(!daoUsuarios){
     await connect(MONGODB_CNX_STR)
     const usuariosModel = model('usuarios', usuariosSchema)
