@@ -24,8 +24,8 @@ export const COOKIE_OPTIONS = {
 }
 export const JWT_PRIVATE_KEY = process.env.JWT_PRIVATE_KEY
 export const DEFAULT_USER_AVATAR_PATH = './static/imgs/default-user.webp'
-export const MODO_EJECUCION = 'development'
-export const IP_LOCATION_PROIVIDER = MAXMIND
+export const MODO_EJECUCION = 'online'
+export const IP_LOCATION_PROIVIDER = IPINFO
 
 // export const MODO_EJECUCION = 'offline'
 

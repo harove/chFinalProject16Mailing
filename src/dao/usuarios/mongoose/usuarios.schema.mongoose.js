@@ -27,15 +27,15 @@ export const usuariosSchema = new Schema({
     versionKey: false,
     strict: 'throw',
     statics: {
-        registrar: async function (userData) {
+        registrar: async function (userPojo) {
             try {
-                if(userData.password){
-                    userData.password = hashear(userData.password)
+                if(userPojo.password){
+                    userPojo.password = hashear(userPojo.password)
                 }
-                asignar_rol(userData)
+                asignar_rol(userPojo)
                 const cart = await cartsService.create()
-                userData.cart = cart._id
-                const user = await this.create(userData)
+                userPojo.cart = cart._id
+                const user = await this.create(userPojo)
                 return user.toObject()
             } catch(error){
                 const typedError = new Error(error.message)

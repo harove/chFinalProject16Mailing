@@ -10,7 +10,7 @@ export async function registrarController(req, res, next) {
     tokenizeUserInCookie(req, res, () => {
       res.created(req.user);
     });
-    getEmailService().enviar({to:'alex@gmail.com',subject:'enviandote mail',html:'hola'})
+    getEmailService().enviar({to:user.email,subject:'successful registration',html:'successful registration'})
   } catch (error) {
     next(error);
   }
