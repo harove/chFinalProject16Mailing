@@ -8,14 +8,12 @@ if (NODE_ENV === 'development'){
 export const IPINFO = 'ipinfo'
 export const MAXMIND = 'maxmind'
 
-
 export const PORT = process.env.PORT || 8080
 export const MONGODB_CNX_STR = process.env.MONGODB_CNX_STR;
 
 export const JWT_PRIVATE_KEY = process.env.JWT_PRIVATE_KEY || ''
 export const COOKIE_SECRET = process.env.COOKIE_SECRET || ''
 
-// export const SESSION_SECRET = 'SecretCoder'
 export const ADMIN_EMAIL = 'adminCoder@coder.com'
 export const GITHUB_APP_ID = 783915
 export const GITHUB_CLIENT_ID = 'Iv1.03ebfa74d8919e54'
@@ -35,8 +33,6 @@ export const COOKIE_OPTIONS = {
 export const DEFAULT_USER_AVATAR_PATH = './static/imgs/default-user.webp'
 export const MODO_EJECUCION = 'online'
 export const IP_LOCATION_PROIVIDER = IPINFO
-
-// export const MODO_EJECUCION = 'offline'
 
 export const loggerLevel = {
   CONSOLE: NODE_ENV === 'production' ? 'info' : 'debug',
