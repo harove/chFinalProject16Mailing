@@ -32,7 +32,7 @@ export const COOKIE_OPTIONS = {
     maxAge: 1000*60*60*24,
     signed: true,
     path: '/',
-    domain: 'https://chfinalproject16mailing.onrender.com/',
+    domain,
     expires: new Date(1), 
 }
 
