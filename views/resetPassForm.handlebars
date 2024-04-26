@@ -1,0 +1,26 @@
+
+  <h1 class="d-flex justify-content-center mb-4">Login</h1>
+  <form>
+    <div class="row mb-3">
+      <label for="newPass" class="col-sm-2 col-form-label">Change Password</label>
+      <div class="col-sm-10">
+        <input type="pasword" id="newPass" name="newPass" placeholder="newPass" class="form-control"><br>
+         <div id="newPassError" class="invalid-feedback"></div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="repeatPassword" class="col-sm-2 col-form-label">password</label>
+      <div class="col-sm-10">
+        <input id="repeatPassword" name="repeatPassword" type="password" placeholder="repeatPassword" class="form-control"><br>
+        <div id="repeatPassError" class="invalid-feedback"></div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary mb-3" type="submit">Change Password</button>
+  </form>
+
+  <p class="mb-3">Recordaste tu password ? Hace click <a href="/login">aqui</a> </p>
+  
+
+  <script src="/static/js/resetPassForm.js"></script>

@@ -6,8 +6,10 @@ import { usuariosService } from "../../services/usuarios.service.js";
 import { authService } from "../../services/auth.service.js";
 import {
   findAllUsersController,
+  forgotPassMailController,
   getCurrentController,
   registrarController,
+  resetPassController,
 } from "../../controllers/rest/usuarios.controller.js";
 
 export const usuariosRouter = Router();
@@ -66,4 +68,12 @@ usuariosRouter.get(
   authService.authenticate("local"),
   soloRoles(["admin"]),
   findAllUsersController
+);
+
+usuariosRouter.post("/forgotpass", forgotPassMailController);
+
+usuariosRouter.post(
+  "/resetPass",
+  authService.authenticate("local"),
+  resetPassController
 );

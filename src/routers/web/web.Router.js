@@ -5,6 +5,7 @@ import { productsRouter } from "./products.router.js";
 import passport from "passport";
 import { productsService } from "../../services/products.service.js";
 import { logger } from "../../utils/logger2.js";
+import { resetPassLinkController } from "../../controllers/web/usuarios.controller.js";
 
 export const webRouter = Router();
 
@@ -46,6 +47,12 @@ webRouter.get("/register", (req, res) => {
 webRouter.get("/login", (req, res) => {
   res.render("login.handlebars", { pageTitle: "Login" });
 });
+
+webRouter.get("/forgotpass", (req, res) => {
+  res.render("forgotPassMailForm.handlebars", { pageTitle: "ForgotPass" });
+});
+
+webRouter.get("/usuarios/reset-password", resetPassLinkController);
 
 webRouter.get("/githublogin", passport.authenticate("loginGithub"));
 

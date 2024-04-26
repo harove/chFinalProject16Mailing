@@ -1,4 +1,5 @@
 import { hashSync, compareSync, genSaltSync } from 'bcrypt'
+import { randomBytes } from 'node:crypto'
 import jwt from "jsonwebtoken"
 import { JWT_PRIVATE_KEY } from '../config/config.js'
 
@@ -49,4 +50,17 @@ export function desencriptar(token) {
       }
     })
   })
+}
+
+export function generateToken() {
+  return new Promise((resolve, reject) => {
+      randomBytes(32, (err, buffer) => {
+          if (err) {
+              reject(err);
+          } else {
+              const token = buffer.toString('hex');
+              resolve(token);
+          }
+      });
+  });
 }

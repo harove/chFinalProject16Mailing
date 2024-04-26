@@ -3,7 +3,6 @@ import { mapsService } from "../../services/maps.service.js"
 
 
 export async function geocodeController(req, res) {
-    console.log({req: req.params.address})
     const address = req.params.address
     try {
         const pojo = await mapsService.geocodeAddress(address)

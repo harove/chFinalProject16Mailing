@@ -17,6 +17,21 @@ class UsuariosService{
     async autenticar(email, password){
         return await usuariosDao.autenticar(email, password)
     }
+
+    async saveResetPassToken(email, token, expirationTime) {
+        return await usuariosDao.saveResetPassToken(email, token, expirationTime);
+    }
+
+    async getOne(query) {
+        return await usuariosDao.getOne(query);
+    }
+    
+    async getOneAndUpdate(query, newParams) {
+        const user = await usuariosDao.getOneAndUpdate(query, newParams);
+        console.log({user})
+        return user
+    }
+
 }
 
 export const usuariosService = new UsuariosService()
