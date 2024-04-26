@@ -27,7 +27,7 @@ export const usuariosSchema = new Schema(
       required: false,
     },
     // foto: { type: String, default: DEFAULT_USER_AVATAR_PATH},
-    rol: { type: String, enum: ["admin", "user"], default: "user" },
+    rol: { type: String, enum: ["admin", "user", "premium"], default: "user" },
   },
   {
     versionKey: false,
