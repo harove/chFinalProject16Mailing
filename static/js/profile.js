@@ -8,8 +8,8 @@ formLogout?.addEventListener('submit', async event => {
     method: 'DELETE'
   })
 
-  document.cookie = 'authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost; Secure; SameSite=None;';
-
+  // document.cookie = 'authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost; Secure; SameSite=None;';
+  document.cookie = 'authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; SameSite=None;';
 
   if (response.status === 204) {
     window.location.href = '/login'
