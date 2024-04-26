@@ -1,6 +1,4 @@
 import {config} from 'dotenv'
-// export const MONGODB_CNX_STR = 'mongodb://localhost/ecommerce';
-
 
 export const NODE_ENV = Number(process.env.NODE_ENV) || 'development'
 if (NODE_ENV === 'development'){
