@@ -8,8 +8,6 @@ if (NODE_ENV === 'development'){
 }
 
 if (NODE_ENV === 'development'){
-  domain = 'localhost'
-}else{
   domain = 'https://chfinalproject16mailing.onrender.com/'
 }
 
