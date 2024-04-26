@@ -1,15 +1,15 @@
 import {config} from 'dotenv'
 
-let domain = 'localhost'
+console.log({env: process.env.NODE_ENV})
 
-export const NODE_ENV = Number(process.env.NODE_ENV) || 'development'
+export const NODE_ENV = process.env.NODE_ENV || 'development'
 if (NODE_ENV === 'development'){
   config()
 }
 
-if (NODE_ENV === 'development'){
-  domain = 'https://chfinalproject16mailing.onrender.com/'
-}
+// if (NODE_ENV === 'development'){
+//   domain = 'https://chfinalproject16mailing.onrender.com/'
+// }
 
 export const IPINFO = 'ipinfo'
 export const MAXMIND = 'maxmind'
@@ -32,7 +32,7 @@ export const COOKIE_OPTIONS = {
     maxAge: 1000*60*60*24,
     signed: true,
     path: '/',
-    domain,
+    domain: 'https://chfinalproject16mailing.onrender.com/',
     expires: new Date(1), 
 }
 
