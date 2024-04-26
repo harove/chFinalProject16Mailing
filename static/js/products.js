@@ -1,4 +1,5 @@
 
+import { DEVELOPMENT_BASE_URL } from "../../src/config/config.js";
 import { httpClient } from "./httpClient.js";
 // import { logger } from "../../src/utils/logger2.js";
 // Retrieve the payload data from the data attribute
@@ -291,7 +292,7 @@ async function handleUrlChange() {
   var currentUrl = window.location.href;
 
   // Check if the URL contains the specified URI
-  if (currentUrl.includes("http://localhost:8080/products")) {
+  if (currentUrl.includes(`${DEVELOPMENT_BASE_URL}/products`)) {
     // Extract the page number from the URL
     var page = new URLSearchParams(window.location.search).get("page");
 

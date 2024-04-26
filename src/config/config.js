@@ -11,10 +11,16 @@ if (NODE_ENV === 'development'){
 //   domain = 'https://chfinalproject16mailing.onrender.com/'
 // }
 
+
+
 export const IPINFO = 'ipinfo'
 export const MAXMIND = 'maxmind'
 
 export const PORT = process.env.PORT || 8080
+
+export const BASE_URL = 'http://localhost:8080'
+export const DEVELOPMENT_BASE_URL = 'https://chfinalproject16mailing.onrender.com/'
+
 export const MONGODB_CNX_STR = process.env.MONGODB_CNX_STR;
 
 export const JWT_PRIVATE_KEY = process.env.JWT_PRIVATE_KEY || ''
