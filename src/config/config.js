@@ -7,19 +7,12 @@ if (NODE_ENV === 'development'){
   config()
 }
 
-// if (NODE_ENV === 'development'){
-//   domain = 'https://chfinalproject16mailing.onrender.com/'
-// }
-
-
-
 export const IPINFO = 'ipinfo'
 export const MAXMIND = 'maxmind'
 
 export const PORT = process.env.PORT || 8080
 
-export const BASE_URL = 'http://localhost:8080'
-export const DEVELOPMENT_BASE_URL = 'https://chfinalproject16mailing.onrender.com/'
+export const BASE_URL = NODE_ENV === "production" ? 'https://chfinalproject16mailing.onrender.com/' : 'http:localhost:8080'
 
 export const MONGODB_CNX_STR = process.env.MONGODB_CNX_STR;
 
@@ -39,7 +32,7 @@ export const COOKIE_OPTIONS = {
     signed: true,
     secure: true,
     path: '/',
-    domain: 'chfinalproject16mailing.onrender.com',
+    domain: NODE_ENV === "production" ? 'chfinalproject16mailing.onrender.com' : 'localhost',
     expires: new Date(1), 
 }
 
