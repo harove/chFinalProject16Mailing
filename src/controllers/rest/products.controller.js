@@ -38,7 +38,7 @@ export async function getByIdController(req, res, next) {
     const id = req.params.id
     try {
         const pojo = await productsService.findById({_id: id})
-        res.json(pojo)
+        res.json(process.env.NODE_ENV)
     } catch (error) {
         next(error)
     }
