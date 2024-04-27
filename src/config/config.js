@@ -12,7 +12,7 @@ export const MAXMIND = 'maxmind'
 
 export const PORT = process.env.PORT || 8080
 
-export const BASE_URL = NODE_ENV === "production" ? 'https://chfinalproject16mailing.onrender.com/' : 'http:localhost:8080'
+export const BASE_URL = NODE_ENV === "production" ? 'https://chfinalproject16mailing.onrender.com/' : 'http:localhost:8080/'
 
 export const MONGODB_CNX_STR = process.env.MONGODB_CNX_STR;
 
