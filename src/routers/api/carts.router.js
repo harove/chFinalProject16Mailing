@@ -14,6 +14,7 @@ authService.authenticate('local'), soloRoles(['user']), addProductToCartControll
 cartsRouter.delete('/:cid/products/:pid', authService.authenticate('local'), soloRoles(['user']), deleteProductFromCartController)
 cartsRouter.put('/:cid/products/:pid', updateQuantityOfProductFromCartController)
 cartsRouter.delete('/:cid/products', deleteAllProductsFromCartController)
+cartsRouter.get('/', getController)
 cartsRouter.post('/', postController)
 cartsRouter.put('/:id', updateController)
 cartsRouter.delete('/:id', deleteController)
