@@ -1,7 +1,5 @@
 import {config} from 'dotenv'
 
-console.log({env: process.env.NODE_ENV})
-
 export const NODE_ENV = process.env.NODE_ENV || 'development'
 if (NODE_ENV === 'development'){
   config()
