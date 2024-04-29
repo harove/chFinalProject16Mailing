@@ -87,9 +87,8 @@ export async function deleteProductFromCartController(req, res, next) {
 //listing carts
 
 export async function getController(req, res, next) {
-    const {limit} = req.query
     // const pojos = await manager.findAll({limit})
-    const pojos = await cartsService.find().limit(limit)
+    const pojos = await cartsService.find({})
     res.json(pojos)
 }
 

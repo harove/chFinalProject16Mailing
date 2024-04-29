@@ -36,6 +36,7 @@ export async function getController(req, res, next) {
 
 export async function getByIdController(req, res, next) {
     const id = req.params.id
+    console.log(process.env.NODE_ENV)
     try {
         const pojo = await productsService.findById({_id: id})
         res.json(pojo)

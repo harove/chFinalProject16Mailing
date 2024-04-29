@@ -1,3 +1,4 @@
+import { BASE_URL } from "../../config/config.js";
 import { tokenizeUserInCookie } from "../../middlewares/tokens.js";
 import { getEmailService } from "../../services/email/email.service.js";
 import { usuariosService } from "../../services/usuarios.service.js";
@@ -48,7 +49,7 @@ export async function forgotPassMailController(req, res) {
     );
     const resetButtonHtml = `
       <button class="btn btn-primary">
-          <a href="http://localhost:8080/usuarios/reset-password?token=${token}">Reset password page</a>
+          <a href="${BASE_URL}usuarios/reset-password?token=${token}">Reset password page</a>
       </button>
       `;
     await getEmailService().enviar({
