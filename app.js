@@ -46,7 +46,6 @@ app.use(express.static('./client/build'))
 app.get('/', (req, res) => {
     // Read the React app's entry point HTML file
     const indexPath = './client/build/index.html';
-    console.log(__dirname)
     res.sendFile('./client/build/index.html');
   });
 
