@@ -1,19 +1,20 @@
 import express from 'express'
-import { apiRouter } from './routers/api/api.router.js'
+import { apiRouter } from './src/routers/api/api.router.js'
 import handlebars from 'express-handlebars'
-import { webRouter } from './routers/web/web.Router.js'
+import { webRouter } from './src/routers/web/web.Router.js'
 import {Server} from 'socket.io'
 import connectMongo from 'connect-mongo'
-import { messagesManager } from './dao/index.js'
+import { messagesManager } from './src/dao/index.js'
 import session from 'express-session'
 // import { sesiones } from './middlewares/sesiones.js'
-import { passportInitialize } from './middlewares/autenticaciones.js'
-import { cookies } from './middlewares/cookies.js'
+import { passportInitialize } from './src/middlewares/autenticaciones.js'
+import { cookies } from './src/middlewares/cookies.js'
 import 'dotenv/config'
-import { productsService } from './services/products.service.js'
-import { manejoDeErrores } from './middlewares/manejoDeErrores.js'
-import { MONGODB_CNX_STR } from './config/config.js'
-import { logger } from './utils/logger2.js'
+import { productsService } from './src/services/products.service.js'
+import { manejoDeErrores } from './src/middlewares/manejoDeErrores.js'
+import { MONGODB_CNX_STR } from './src/config/config.js'
+import { logger } from './src/utils/logger2.js'
+import path from 'path';
 
 // import {  } from './midlewares/midlewares.js'
 
@@ -36,7 +37,18 @@ app.set('views', './views')
 app.use(express.static('./public'))
 app.use(express.static('./views'))
 app.use('/static', express.static('./static'))
+app.use(express.static('./client/build'))
+
 // app.use(sesiones)
+
+
+// Route handler for the root path or any other desired path
+app.get('/', (req, res) => {
+    // Read the React app's entry point HTML file
+    const indexPath = './client/build/index.html';
+    console.log(__dirname)
+    res.sendFile('./client/build/index.html');
+  });
 
 
 //Para saber en que puerto esta funcionando.
