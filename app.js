@@ -29,7 +29,7 @@ const store = connectMongo.create({
 
 const app = express()
 
-uploadFile();
+// uploadFile();
 
 app.use(cookies)
 app.use(passportInitialize)

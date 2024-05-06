@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
-import "./App.css";
-import ProductCard from "./components/ProductCard";
-import ProductList from "./components/ProductList";
-import Cart from "./components/Cart";
+import React, { useEffect, useState } from "react";
+import ProductList from "./ProductList";
+import Cart from "./Cart";
 
-function App() {
+function Home() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
 
@@ -40,4 +38,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
