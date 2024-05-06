@@ -1,8 +1,8 @@
 import React from 'react';
 
-function ProductCard({ product, onAddToCart }) {
+function ProductCard({key, product, onAddToCart }) {
     return (
-      <div className="rounded-lg shadow-md overflow-hidden bg-white transform transition duration-300 hover:scale-105">
+      <div key={key} className="rounded-lg shadow-md overflow-hidden bg-white transform transition duration-300 hover:scale-105">
         <img className="w-full h-48 object-cover" src={product?.thumbnails[0]} alt={product.name} />
         <div className="p-4">
           <h5 className="text-xl font-bold tracking-tight text-gray-900">{product.name}</h5>
