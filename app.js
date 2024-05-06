@@ -15,6 +15,8 @@ import { manejoDeErrores } from './src/middlewares/manejoDeErrores.js'
 import { MONGODB_CNX_STR } from './src/config/config.js'
 import { logger } from './src/utils/logger2.js'
 import path from 'path';
+import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
+import { uploadFile } from './src/services/s3.js'
 
 // import {  } from './midlewares/midlewares.js'
 
@@ -27,6 +29,7 @@ const store = connectMongo.create({
 
 const app = express()
 
+uploadFile();
 
 app.use(cookies)
 app.use(passportInitialize)
