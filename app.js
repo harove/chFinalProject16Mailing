@@ -23,7 +23,10 @@ import { uploadFile } from "./src/services/s3.js";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+// const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const __dirname = process.cwd()
+
 
 // import {  } from './midlewares/midlewares.js'
 
@@ -56,9 +59,9 @@ app.get("/", (req, res) => {
   res.sendFile("./client/build/index.html", { root: __dirname });
 });
 
-app.get("/about", (req, res) => {
-  res.sendFile("./client/build/index.html", { root: __dirname });
-});
+// app.get("/about", (req, res) => {
+//   res.sendFile("./client/build/index.html", { root: __dirname });
+// });
 
 //Para saber en que puerto esta funcionando.
 const server = app.listen(PORT, () => {
