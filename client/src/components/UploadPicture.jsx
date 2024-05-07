@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 const UploadPicture = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [message, setMessage] = useState('');
+  const [caption, setCaption] = useState('');
+  
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -13,6 +15,8 @@ const UploadPicture = () => {
 
     const formData = new FormData();
     formData.append('picture', selectedFile);
+    formData.append('caption', caption );
+    
 
     try {
       const response = await fetch('/api/products/upload', {
@@ -33,6 +37,7 @@ const UploadPicture = () => {
   return (
     <div>
       <input type="file" name='picture' onChange={handleFileChange} />
+      <input type="text" name='caption' onChange={e => setCaption(e.target.value)} placeholder='Caption' />
       <button onClick={handleUpload} disabled={!selectedFile}>
         Upload
       </button>

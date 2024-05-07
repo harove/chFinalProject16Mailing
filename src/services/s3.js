@@ -1,16 +1,49 @@
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { PutObjectCommand, S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
+
+const bucketRegion = process.env.BUCKET_REGION;
+const bucketName = process.env.BUCKET_NAME;
+const awsAccessKey = process.env.AWS_ACCESS_KEY_ID;
+const awsSecret = process.env.AWS_SECRET_ACCESS_KEY;
 
 const s3Client = new S3Client({
-    region: "sa-east-1"
+  region: bucketRegion,
+  credentials: {
+    accessKeyId: awsAccessKey,
+    secretAccessKey: awsSecret,
+  },
 });
 
-export async function uploadFile() {
+
+
+// const command = new GetObjectCommand(getObjectParams);
+// const url = await getSignedUrl(client, command, { expiresIn: 3600 });
+
+
+
+
+
+
+/**
+ * Uploads a file to an Amazon S3 bucket.
+ * 
+ * @param {string} fileName The name of the file to be uploaded to S3.
+ * @param {string|Buffer|ReadableStream} body The contents of the file to be uploaded. 
+ * This can be a string, Buffer, or ReadableStream.
+ * @param {string} contentType The content type of the file being uploaded.
+ * This is important for S3 to correctly identify the file type.
+ * 
+ * @returns {Promise<void>} This function is asynchronous and does not return a value,
+ * but resolves a promise upon successful upload.
+ */
+export async function uploadFile(fileName,body, contentType ) {
   try {
     const command = new PutObjectCommand({
-      Bucket: "esundetalle2",
-      Key: "file.txt",
-      Body: "Hello from v3!",
+      Bucket: bucketName,
+      Key: fileName,
+      Body: body,
+      ContentType: contentType
     });
     await s3Client.send(command);
     console.log("File uploaded successfully!");
@@ -25,24 +58,12 @@ export async function uploadFile() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 // Define the S3 URI of the image
 const imageUri = "s3://esundetalle2/pixabay1.jpg";
 
 // Extract the bucket name and object key from the URI
 const parsedUri = new URL(imageUri);
-const bucketName = parsedUri.hostname;
+// const bucketName = parsedUri.hostname;
 const objectKey = parsedUri.pathname.slice(1); // Remove leading slash
 
 // Get the object from S3
@@ -55,19 +76,17 @@ const objectKey = parsedUri.pathname.slice(1); // Remove leading slash
 //     console.error("Error retrieving object:", error);
 //   });
 
-const getImageUrl = async (bucketName, objectKey) => {
-    try {
-      // Generate a pre-signed URL with appropriate expiration time
-      const params = {
-        Bucket: bucketName,
-        Key: objectKey,
-        Expires: 3600 // Expires in 1 hour (adjust as needed)
-      };
-      const preSignedUrl = await s3Client.getSignedUrl('getObject', params);
-  
-      return preSignedUrl;
-    } catch (error) {
-      console.error("Error generating pre-signed URL:", error);
-      throw error; // Re-throw for handling in the calling code
-    }
-  };
+const getImageUrl = async (bucketName, fileName) => {
+  try {
+    const params = {
+      Bucket: bucketName,
+      Key: fileName,
+      Expires: 3600,
+    };
+    const preSignedUrl = await s3Client.getSignedUrl("getObject", params);
+    return preSignedUrl;
+  } catch (error) {
+    console.error("Error generating pre-signed URL:", error);
+    throw error; // Re-throw for handling in the calling code
+  }
+};

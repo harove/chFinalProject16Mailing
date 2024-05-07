@@ -1,5 +1,6 @@
 import { ERROR_TYPE, newError } from '../../errors/errors.js'
 import { productsService } from '../../services/products.service.js'
+import { uploadFile } from '../../services/s3.js'
 
 export async function postController(req, res, next) {
     const body = req.body
@@ -74,5 +75,14 @@ export async function deleteController(req, res, next) {
 }
 
 export async function uploadController(req, res, next) {
-    res.status(200).json("upload sucessful");
+    console.log({'req.body': req.body})
+    console.log({'req.file': req.file})
+    try {
+        await uploadFile(req.file.originalname, req.file.buffer, req.file.mimetype)
+        res.status(200).json("upload sucessful");
+    } catch (error) {
+        next(error)
+    }
+
+
 }
