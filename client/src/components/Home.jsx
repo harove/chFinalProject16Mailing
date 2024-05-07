@@ -24,7 +24,7 @@ function Home() {
   };
 
   const removeFromCart = (product) => {
-    setCart(cart.filter((item) => item.id !== product.id));
+    setCart(cart.filter((item) => item._id !== product._id));
   };
 
   useEffect(() => {

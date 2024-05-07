@@ -15,7 +15,7 @@ function Cart({ cart, removeFromCart }) {
           <div key={item.id} className="px-4 py-4 flex items-center">
             <img
               className="w-16 h-16 rounded-full mr-4 object-cover"
-              src={item.image} // Assuming you have an image property in product data
+              src={item?.signedUrl} // Assuming you have an image property in product data
               alt={item.name}
             />
             <div className="flex-grow">
