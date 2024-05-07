@@ -52,8 +52,24 @@ export async function uploadFile(fileName,body, contentType ) {
   }
 }
 
-
-
+/**
+ * Uploads a file to an Amazon S3 bucket.
+ * 
+ * @param {string} fileName The name of the file to be uploaded to S3.
+ */
+export async function getSignedUrlService(fileName) {
+  try {
+    const command = new GetObjectCommand({
+      Bucket: bucketName,
+      Key: fileName,
+    });
+    const url = await getSignedUrl(s3Client, command, {expiresIn:3600})
+    console.log("Got file successfully!");
+    return url
+  } catch (error) {
+    console.error("Error getting file:", error);
+  }
+}
 
 
 

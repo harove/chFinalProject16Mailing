@@ -1,6 +1,6 @@
 import { ERROR_TYPE, newError } from '../../errors/errors.js'
 import { productsService } from '../../services/products.service.js'
-import { uploadFile } from '../../services/s3.js'
+import { getSignedUrlService, uploadFile } from '../../services/s3.js'
 
 export async function postController(req, res, next) {
     const body = req.body
@@ -22,6 +22,12 @@ export async function getController(req, res, next) {
 
     try {
         const {docs: payload, prevPage, nextPage,  ...rest} = await productsService.paginate(query, options)
+
+        for(const product of payload){
+            if (product.thumbnails[0]){
+                product.signedUrl = await getSignedUrlService(product.thumbnails[0])
+            }
+        }
         const response = {
             status: 'success',
             payload,
@@ -77,12 +83,14 @@ export async function deleteController(req, res, next) {
 export async function uploadController(req, res, next) {
     console.log({'req.body': req.body})
     console.log({'req.file': req.file})
+    const id = req.body.productId
+    const fields = {thumbnails:[req.file.originalname]}
+    console.log({id})
     try {
+        await productsService.findByIdAndUpdate(id, {$set: fields}, { new: true})
         await uploadFile(req.file.originalname, req.file.buffer, req.file.mimetype)
         res.status(200).json("upload sucessful");
     } catch (error) {
         next(error)
     }
-
-
 }

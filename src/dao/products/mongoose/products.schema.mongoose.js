@@ -12,6 +12,7 @@ const productsSchema = new Schema({
     stock: {type: Number, required: true},
     category: {type: String, default: false},
     thumbnails: { type: [String], default: [] },
+    signedUrl: { type: [String], default: [] }
 }, 
 {
     strict: 'throw',

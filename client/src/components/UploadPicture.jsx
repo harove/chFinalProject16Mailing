@@ -4,6 +4,7 @@ const UploadPicture = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [message, setMessage] = useState('');
   const [caption, setCaption] = useState('');
+  const [productId, setProductId] = useState('');
   
 
   const handleFileChange = (event) => {
@@ -16,6 +17,7 @@ const UploadPicture = () => {
     const formData = new FormData();
     formData.append('picture', selectedFile);
     formData.append('caption', caption );
+    formData.append('productId', productId );
     
 
     try {
@@ -38,6 +40,7 @@ const UploadPicture = () => {
     <div>
       <input type="file" name='picture' onChange={handleFileChange} />
       <input type="text" name='caption' onChange={e => setCaption(e.target.value)} placeholder='Caption' />
+      <input type="text" name='id_producto' onChange={e => setProductId(e.target.value)} placeholder='id_producto' />
       <button onClick={handleUpload} disabled={!selectedFile}>
         Upload
       </button>
