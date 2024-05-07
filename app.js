@@ -63,6 +63,10 @@ app.get("/about", (req, res) => {
   res.sendFile("./client/build/index.html", { root: __dirname });
 });
 
+app.get("/upload", (req, res) => {
+  res.sendFile("./client/build/index.html", { root: __dirname });
+});
+
 //Para saber en que puerto esta funcionando.
 const server = app.listen(PORT, () => {
   logger.info(`Server ON: ${PORT}`);

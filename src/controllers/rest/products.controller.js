@@ -72,3 +72,7 @@ export async function deleteController(req, res, next) {
         next(error)
     }
 }
+
+export async function uploadController(req, res, next) {
+    res.status(200).json("upload sucessful");
+}

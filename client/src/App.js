@@ -5,6 +5,7 @@ import ProductList from "./components/ProductList";
 import Cart from "./components/Cart";
 import Home from "./components/Home";
 import { Route, Routes } from "react-router-dom";
+import UploadPicture from "./components/UploadPicture";
 
 const About = () => <div>About</div>;
 
@@ -13,6 +14,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
+      <Route path="/upload" element={<UploadPicture/>} />
     </Routes>
   );
 }
