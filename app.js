@@ -55,10 +55,6 @@ app.use(express.static("./client/build"));
 // app.use(sesiones)
 
 // Route handler for the root path or any other desired path
-app.get("/", (req, res) => {
-  res.sendFile("./client/build/index.html", { root: __dirname });
-});
-
 app.get("/about", (req, res) => {
   res.sendFile("./client/build/index.html", { root: __dirname });
 });
