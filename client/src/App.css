@@ -6,6 +6,11 @@
   text-align: center;
 }
 
+.navbar {
+  background-color: orange-100;
+  color: black; /* Or a darker text color for contrast */
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
