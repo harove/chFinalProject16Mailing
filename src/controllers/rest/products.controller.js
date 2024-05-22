@@ -84,11 +84,11 @@ export async function uploadController(req, res, next) {
     console.log({'req.body': req.body})
     console.log({'req.file': req.file})
     const id = req.body.productId
-    const fields = {thumbnails:[req.file.originalname]}
+    const fields = {thumbnails:[req.file.filename]}
     console.log({id})
     try {
         await productsService.findByIdAndUpdate(id, {$set: fields}, { new: true})
-        await uploadFile(req.file.originalname, req.file.buffer, req.file.mimetype)
+        // await uploadFile(req.file.originalname, req.file.buffer, req.file.mimetype)
         res.status(200).json("upload sucessful");
     } catch (error) {
         next(error)

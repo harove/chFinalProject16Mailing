@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ProductList from "./ProductList";
 import Cart from "./Cart";
-import Navbar from "./NavBar";
-import axios from "axios";
+import Video from "./Video";
 
 function Home() {
   const [products, setProducts] = useState([
@@ -20,8 +19,7 @@ function Home() {
   ]);
   const [isLoading, setIsLoading] = useState(true);
   const [cart, setCart] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState(null);
+  const [videoUrl, setVideoUrl] = useState("");
 
   const addToCart = (product) => {
     setCart([...cart, product]);
@@ -31,26 +29,8 @@ function Home() {
     setCart(cart.filter((item) => item._id !== product._id));
   };
 
-  const handleLogout = () => {}
-
   useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const response = await axios.get('/api/sesiones/current');
-        if (response.status === 200) {
-          setIsLoggedIn(true);
-          setUserData(response.data);
-        } else {
-          setIsLoggedIn(false);
-          setUserData(null);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchCurrentUser();
-
+    setVideoUrl("./uploads/picture-1716350931855-133787090.mp4");
     fetch("/api/products?page=1")
       .then((stream) => stream.json())
       .then((data) => {
@@ -67,11 +47,11 @@ function Home() {
   ) : (
     <div className="container mx-auto px-4 py-8 mt-8">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-        <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
         <div className="md:col-span-8 xl:grid xl:grid-cols-auto-fit">
           <ProductList products={products} addToCart={addToCart} />
         </div>
         <div className="md:col-span-4">
+          {videoUrl && <Video videoUrl={videoUrl} />}
           <Cart cart={cart} removeFromCart={removeFromCart} />
         </div>
       </div>

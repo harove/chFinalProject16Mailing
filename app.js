@@ -26,6 +26,7 @@ import { fileURLToPath } from "url";
 // const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const __dirname = process.cwd()
+const uploadsDir = path.join(__dirname, 'uploads');
 
 
 // import {  } from './midlewares/midlewares.js'
@@ -51,6 +52,7 @@ app.use(express.static("./public"));
 app.use(express.static("./views"));
 app.use("/static", express.static("./static"));
 app.use(express.static("./client/build"));
+app.use('/uploads', express.static(uploadsDir));
 
 // app.use(sesiones)
 

@@ -20,6 +20,11 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
               </NavLink>
             </li>
             <li>
+              <NavLink to="/upload" className="text-gray-300 hover:text-white">
+                Upload
+              </NavLink>
+            </li>
+            <li>
               <NavLink to="/register" className="text-gray-300 hover:text-white">
                 Register
               </NavLink>
