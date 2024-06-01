@@ -27,10 +27,10 @@ const UploadPicture = () => {
         // },
       });
       const data = await response.json();
-      setMessage(data.message); // Update message based on server response
+      setMessage(data.message);
     } catch (error) {
       console.error(error);
-      setMessage("Error uploading picture"); // Handle errors
+      setMessage("Error uploading picture");
     }
   };
 
