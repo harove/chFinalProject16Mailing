@@ -14,6 +14,7 @@ import { productsService } from "./src/services/products.service.js";
 import { manejoDeErrores } from "./src/middlewares/manejoDeErrores.js";
 import { MONGODB_CNX_STR } from "./src/config/config.js";
 import { logger } from "./src/utils/logger2.js";
+import cors from 'cors'
 import {
   S3Client,
   PutObjectCommand,
@@ -22,6 +23,7 @@ import {
 import { uploadFile } from "./src/services/s3.js";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
+import { consoleLog } from "./src/middlewares/consoleLog.js";
 
 // const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -41,7 +43,7 @@ const store = connectMongo.create({
 const app = express();
 
 // uploadFile();
-
+app.use(cors());
 app.use(cookies);
 app.use(passportInitialize);
 //motor de plantillas
@@ -82,7 +84,7 @@ app.use((req, res, next) => {
 
 //Routers
 app.use("/api", apiRouter);
-app.use("/", webRouter);
+app.use("/", consoleLog, webRouter);
 
 app.use(manejoDeErrores);
 

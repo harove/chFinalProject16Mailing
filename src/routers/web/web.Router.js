@@ -6,8 +6,10 @@ import passport from "passport";
 import { productsService } from "../../services/products.service.js";
 import { logger } from "../../utils/logger2.js";
 import { resetPassLinkController } from "../../controllers/web/usuarios.controller.js";
+import { consoleLog } from "../../middlewares/consoleLog.js";
 
 export const webRouter = Router();
+console.log('hola que tal')
 
 webRouter.use(productsRouter);
 
@@ -26,7 +28,7 @@ webRouter.get("/chat", (req, res) => {
 
 webRouter.use("/carts", cartsWebRouter);
 
-webRouter.get("/", (req, res) => {
+webRouter.get("/",consoleLog, (req, res) => {
   res.redirect("/profile");
 });
 
